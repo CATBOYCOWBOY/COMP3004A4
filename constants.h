@@ -11,4 +11,7 @@
 #define LOGS_TAB_TEXT "Logs"
 #define SETTINGS_TAB_TEXT "Date/time settings"
 
+#define DISCONNECT_ALERT "Alert: EEG terminal(s) disconnected"
+#define POWER_ALERT "Alert: insufficient battery"
+
 #endif // CONSTANTS_H

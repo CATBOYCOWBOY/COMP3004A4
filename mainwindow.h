@@ -25,5 +25,8 @@ private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
   void uiSetup();
+
+  bool isBatterySuffient;
+  bool areAllEEGNodesConnected;
 };
 #endif // MAINWINDOW_H
