@@ -20,6 +20,8 @@ MainWindow::~MainWindow()
 void MainWindow::uiSetup()
 {
   this->setStyleSheet(APP_STYLE_GLOBAL);
+  ui->treatmentProgressLabel->setAlignment(Qt::AlignCenter);
+  ui->treatmentProgress->setValue(0);
   ui->primaryTabs->setTabText(0, TREATMENT_TAB_TEXT);
   ui->primaryTabs->setTabText(1, LOGS_TAB_TEXT);
   ui->primaryTabs->setTabText(2, SETTINGS_TAB_TEXT);
