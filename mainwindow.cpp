@@ -20,6 +20,7 @@ MainWindow::~MainWindow()
 void MainWindow::uiSetup()
 {
   this->setStyleSheet(APP_STYLE_GLOBAL);
+  ui->dateTimeDisplay->setText(currentDateTime->toString());
   ui->treatmentProgressLabel->setAlignment(Qt::AlignCenter);
   ui->treatmentProgress->setValue(0);
   ui->primaryTabs->setTabText(0, TREATMENT_TAB_TEXT);

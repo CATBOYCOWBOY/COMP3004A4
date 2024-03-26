@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -60,7 +60,7 @@
       <property name="geometry">
        <rect>
         <x>280</x>
-        <y>230</y>
+        <y>260</y>
         <width>122</width>
         <height>80</height>
        </rect>
@@ -127,6 +127,19 @@
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="treatmentAlertLabel">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>220</y>
+        <width>281</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
@@ -137,6 +150,19 @@
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
+     <widget class="QLabel" name="dateTimeDisplay">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>110</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

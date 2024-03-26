@@ -1,7 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDateTime>
 #include <QMainWindow>
+#include <QThread>
+#include <QMutex>
 #include "computerview.h"
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +28,8 @@ private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
   void uiSetup();
+
+  QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
 
   bool isBatterySuffient;
   bool areAllEEGNodesConnected;
