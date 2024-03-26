@@ -7,7 +7,8 @@
 #define ONE_MINUTE 5
 #define NUM_SITES 21
 
-#define NEURESET_TAB_TEXT "Neureset device view"
-#define COMPUTER_TAB_TEXT "Computer view"
+#define TREATMENT_TAB_TEXT "Treatments"
+#define LOGS_TAB_TEXT "Logs"
+#define SETTINGS_TAB_TEXT "Date/time settings"
 
 #endif // CONSTANTS_H

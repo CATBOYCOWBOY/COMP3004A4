@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>728</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,121 +17,24 @@
    <widget class="QTabWidget" name="primaryTabs">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>801</width>
-      <height>551</height>
+      <x>10</x>
+      <y>10</y>
+      <width>701</width>
+      <height>471</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
-     <widget class="QScrollArea" name="neuresetView">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>80</y>
-        <width>381</width>
-        <height>281</height>
-       </rect>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>379</width>
-         <height>279</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>400</y>
-        <width>160</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QPushButton" name="menuPlay">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resources.qrc">
-           <normaloff>:/new/prefix1/assets/playIcon.jpg</normaloff>:/new/prefix1/assets/playIcon.jpg</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="menuPause">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resources.qrc">
-           <normaloff>:/new/prefix1/assets/pauseIcon.jpg</normaloff>:/new/prefix1/assets/pauseIcon.jpg</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="menuStop">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resources.qrc">
-           <normaloff>:/new/prefix1/assets/stopButton.jpg</normaloff>:/new/prefix1/assets/stopButton.jpg</iconset>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>620</x>
-        <y>190</y>
-        <width>81</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QPushButton" name="menuUp">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resources.qrc">
-           <normaloff>:/new/prefix1/assets/uparrow.png</normaloff>:/new/prefix1/assets/uparrow.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="resources.qrc">
-           <normaloff>:/new/prefix1/assets/downarrow.png</normaloff>:/new/prefix1/assets/downarrow.png</iconset>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Page</string>
+     </attribute>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -146,7 +49,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>728</width>
      <height>20</height>
     </rect>
    </property>
@@ -161,16 +64,19 @@
      <addaction name="actionSet_low"/>
      <addaction name="actionReset"/>
     </widget>
-    <addaction name="EEGDisconnectOption"/>
+    <widget class="QMenu" name="menuEEG_terminals">
+     <property name="title">
+      <string>EEG terminals</string>
+     </property>
+     <addaction name="actionconnect"/>
+     <addaction name="actiondisconnect"/>
+    </widget>
+    <addaction name="menuEEG_terminals"/>
     <addaction name="batteryOptions"/>
+    <addaction name="computerViewAction"/>
    </widget>
    <addaction name="neuresetMenu"/>
   </widget>
-  <action name="EEGDisconnectOption">
-   <property name="text">
-    <string>EEG disconnect</string>
-   </property>
-  </action>
   <action name="actionSet_low">
    <property name="text">
     <string>Set low</string>
@@ -181,9 +87,27 @@
     <string>Reset</string>
    </property>
   </action>
+  <action name="actionComputer_view">
+   <property name="text">
+    <string>Computer view</string>
+   </property>
+  </action>
+  <action name="computerViewAction">
+   <property name="text">
+    <string>Computer view</string>
+   </property>
+  </action>
+  <action name="actionconnect">
+   <property name="text">
+    <string>connect</string>
+   </property>
+  </action>
+  <action name="actiondisconnect">
+   <property name="text">
+    <string>disconnect</string>
+   </property>
+  </action>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

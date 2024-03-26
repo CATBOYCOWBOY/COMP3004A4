@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "computerview.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,9 +18,12 @@ public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
+private slots:
+  void on_computerViewAction_triggered();
+
 private:
   Ui::MainWindow *ui;
-
+  ComputerView *computerView;
   void uiSetup();
 };
 #endif // MAINWINDOW_H
