@@ -14,4 +14,5 @@
 #define DISCONNECT_ALERT "Alert: EEG terminal(s) disconnected"
 #define POWER_ALERT "Alert: insufficient battery"
 
+#define EPOCH "1970 01 01"
 #endif // CONSTANTS_H
