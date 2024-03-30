@@ -17,6 +17,8 @@ SOURCES += \
   Light.cpp \
   SensorPool.cpp \
   Session.cpp \
+    timecontroller.cpp \
+    timeupdater.cpp
 
 HEADERS += \
   computerview.h \
@@ -28,6 +30,8 @@ HEADERS += \
   Light.h \
   SensorPool.h \
   Session.h \
+  timecontroller.h \
+  timeupdater.h
 
 FORMS += \
   computerview.ui \

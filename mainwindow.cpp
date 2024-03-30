@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow)
 {
+  timeController = new TimeController();
   this->computerView = new ComputerView(this);
   ui->setupUi(this);
   uiSetup();
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
   delete ui;
+  delete timeController;
 }
 
 void MainWindow::uiSetup()
@@ -31,5 +33,22 @@ void MainWindow::uiSetup()
 void MainWindow::on_computerViewAction_triggered()
 {
   computerView->show();
+}
+
+
+
+
+
+
+void MainWindow::updateTime()
+{
+    *currentDateTime = QDateTime::currentDateTime();
+    ui->dateTimeDisplay->setText(currentDateTime->toString());
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    updateTime();
+    ui->dateTimeDisplay->setText(currentDateTime->toString());
 }
 

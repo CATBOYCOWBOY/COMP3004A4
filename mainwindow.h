@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QMutex>
 #include "computerview.h"
+#include "timecontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,13 +22,18 @@ public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
+
 private slots:
   void on_computerViewAction_triggered();
+
+  void on_pushButton_clicked();
 
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
+  TimeController *timeController;
   void uiSetup();
+  void updateTime();
 
   QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
 
