@@ -10,7 +10,7 @@ class SensorPool {
         ~SensorPool();
 
         // getters | setters
-        bool allConnected();
+        bool getAllConnected();
         void setAllConnected();
     private:
         bool allConnected = true;
