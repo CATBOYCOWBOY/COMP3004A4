@@ -11,13 +11,23 @@ CONFIG += c++17
 SOURCES += \
   computerview.cpp \
   main.cpp \
-  mainwindow.cpp
+  mainwindow.cpp \
+  Button.cpp \
+  Display.cpp \
+  Light.cpp \
+  SensorPool.cpp \
+  Session.cpp \
 
 HEADERS += \
   computerview.h \
   constants.h \
-  mainwindow.h
-  constants.h
+  mainwindow.h \
+  constants.h \
+  Button.h \
+  Display.h \
+  Light.h \
+  SensorPool.h \
+  Session.h \
 
 FORMS += \
   computerview.ui \
