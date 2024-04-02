@@ -23,11 +23,9 @@ HEADERS += \
   constants.h \
   mainwindow.h \
   constants.h \
-  Button.h \
-  Display.h \
-  Light.h \
   SensorPool.h \
   Session.h \
+  neuresetController.h
 
 FORMS += \
   computerview.ui \
