@@ -12,13 +12,15 @@ class Session {
         ~Session();
 
         // getters and setters
-        QString getDateTime();
+        QString getStartTime();
+        QString getEndTime();
         int getStartBaseline();
         int getEndBaseline();
 
     private: 
         int id;
-        QString datetime;
+        QString startTime;
+        QString endTime
         int startBaseline;
         int endBaseline;
 };
