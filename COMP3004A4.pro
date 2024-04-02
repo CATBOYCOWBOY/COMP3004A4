@@ -17,6 +17,7 @@ SOURCES += \
   Light.cpp \
   SensorPool.cpp \
   Session.cpp \
+  treatmentcontroller.cpp
 
 HEADERS += \
   computerview.h \
@@ -25,7 +26,8 @@ HEADERS += \
   constants.h \
   SensorPool.h \
   Session.h \
-  neuresetController.h
+  neuresetController.h \
+  treatmentcontroller.h
 
 FORMS += \
   computerview.ui \
