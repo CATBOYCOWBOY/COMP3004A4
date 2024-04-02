@@ -1,8 +1,10 @@
 #include "timecontroller.h"
 #include <QDebug>
 
-TimeController::TimeController()
+TimeController::TimeController(QObject* parent, Ui::MainWindow* ui)
 {
+    this->parent = parent;
+    mw = ui;
     timeUpdater = new TimeUpdater();
     qthread = new QThread();
     timeUpdater->moveToThread(qthread);
@@ -13,7 +15,6 @@ TimeController::TimeController()
     connect(this, &TimeController::shutOff, timeUpdater, &TimeUpdater::onShutOff, Qt::DirectConnection);
     qthread->start();
 }
-
 TimeController::~TimeController()
 {
     emit shutOff();
