@@ -24,3 +24,9 @@ void TimeController::onDeviceTimeUpdate()
 {
     qDebug() << "onDeviceTimeUpdate";
 }
+
+void TimeController::updateTime()
+{
+    *currentDateTime = QDateTime::currentDateTime();
+    mw->dateTimeDisplay->setText(currentDateTime->toString());
+}

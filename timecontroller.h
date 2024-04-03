@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QThread>
 #include <QMainWindow>
+#include <QTime>
 #include "ui_mainwindow.h"
 #include "timeupdater.h"
 
@@ -19,10 +20,12 @@ signals:
     void deviceTimeUpdate();
     void shutOff();
 private:
+    void updateTime();
     TimeUpdater *timeUpdater;
     QThread *qthread;
     Ui::MainWindow *mw;
     QObject *parent;
+    QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
 };
 
 #endif // TIMECONTROLLER_H

@@ -11,8 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
   this->computerView = new ComputerView(this);
   ui->setupUi(this);
   uiSetup();
-
-  treatmentController = new TreatmentController(this, ui, TREATMENT_TAB_INDEX);
 }
 
 MainWindow::~MainWindow()
@@ -25,6 +23,9 @@ void MainWindow::uiSetup()
 {
   this->setStyleSheet(APP_STYLE_GLOBAL);
   ui->dateTimeDisplay->setText(currentDateTime->toString());
+  ui->treatmentProgressLabel->setAlignment(Qt::AlignCenter);
+  ui->treatmentProgress->setValue(0);
+  ui->primaryTabs->setTabText(0, TREATMENT_TAB_TEXT);
   ui->primaryTabs->setTabText(1, LOGS_TAB_TEXT);
   ui->primaryTabs->setTabText(2, SETTINGS_TAB_TEXT);
 }
