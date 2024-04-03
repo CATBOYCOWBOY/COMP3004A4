@@ -26,16 +26,11 @@ public:
 private slots:
   void on_computerViewAction_triggered();
 
-  void on_pushButton_clicked();
-
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
   TimeController *timeController;
   void uiSetup();
-  void updateTime();
-
-  QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
 
   bool isBatterySuffient;
   bool areAllEEGNodesConnected;
