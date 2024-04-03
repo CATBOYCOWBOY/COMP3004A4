@@ -4,6 +4,7 @@
 #include <QThread>
 #include <QMainWindow>
 #include <QTime>
+#include <QDate>
 #include "ui_mainwindow.h"
 #include "timeupdater.h"
 
@@ -13,6 +14,7 @@ class TimeController : public QObject
 public:
     explicit TimeController(QObject *parent = nullptr, Ui::MainWindow *ui = nullptr);
     ~TimeController();
+    QString getTime();
 
 public slots:
     void onDeviceTimeUpdate();
@@ -21,11 +23,22 @@ signals:
     void shutOff();
 private:
     void updateTime();
+    void setDateTime();
+    qint64 secsDelay = 0;
     TimeUpdater *timeUpdater;
     QThread *qthread;
     Ui::MainWindow *mw;
     QObject *parent;
     QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
+
+    int tempYear;
+    int tempMonth;
+    int tempDay;
+    int tempHour;
+    int tempMinute;
+    QDate tempDate;
+    QTime tempTime;
+    QDateTime tempDateTime;
 };
 
 #endif // TIMECONTROLLER_H

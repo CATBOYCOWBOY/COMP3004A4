@@ -20,13 +20,34 @@ TimeController::~TimeController()
     emit shutOff();
 }
 
+QString TimeController::getTime()
+{
+    return (currentDateTime->addSecs(secsDelay)).toString();
+}
+
 void TimeController::onDeviceTimeUpdate()
 {
     qDebug() << "onDeviceTimeUpdate";
+    *currentDateTime = QDateTime::currentDateTime();
+    qDebug() << getTime();
+    //updateTime();
 }
 
 void TimeController::updateTime()
 {
     *currentDateTime = QDateTime::currentDateTime();
-    mw->dateTimeDisplay->setText(currentDateTime->toString());
+    mw->dateTimeDisplay->setText(getTime());
+}
+
+void TimeController::setDateTime()
+{
+    tempYear = 0;
+    tempMonth = 0;
+    tempDay = 0;
+    tempHour = 0;
+    tempMinute = 0;
+    tempDate = QDate(tempYear, tempMonth, tempDay);
+    tempTime = QTime(tempHour, tempMinute, 0, 0);
+    tempDateTime = QDateTime(tempDate, tempTime);
+
 }
