@@ -32,3 +32,33 @@ void MainWindow::on_computerViewAction_triggered()
   computerView->show();
 }
 
+void MainWindow::on_menuButton_clicked()
+{
+  qDebug() << "menu btton";
+}
+
+void MainWindow::on_upButton_clicked()
+{
+  qDebug() << "up button";
+}
+
+void MainWindow::on_downButton_clicked()
+{
+  qDebug() << "down button";
+}
+
+void MainWindow::on_playButton_clicked()
+{
+  qDebug() << "play button";
+}
+
+void MainWindow::on_pauseButton_clicked()
+{
+  qDebug() << "pause button";
+}
+
+void MainWindow::on_stopButton_clicked()
+{
+  qDebug() << "stop button";
+}
+

@@ -13,6 +13,8 @@
 #define LOGS_TAB_INDEX 1
 #define SETTINGS_TAB_TEXT "Date/time settings"
 #define SETTINGS_TAB_INDEX 2
+#define MENU_TAB_TEXT "Menu"
+#define MENU_TAB_INDEX 3
 
 #define DISCONNECT_ALERT "Alert: EEG terminal(s) disconnected"
 #define POWER_ALERT "Alert: insufficient battery"
