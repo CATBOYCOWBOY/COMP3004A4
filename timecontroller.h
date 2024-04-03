@@ -12,7 +12,7 @@ class TimeController : public QObject
 {
     Q_OBJECT
 public:
-    explicit TimeController(QObject *parent = nullptr, Ui::MainWindow *ui = nullptr);
+    explicit TimeController(QObject *parent = nullptr, Ui::MainWindow *ui = nullptr, int i = -1);
     ~TimeController();
     QString getTime();
 
@@ -31,6 +31,7 @@ private:
     QObject *parent;
     QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
 
+    int controllerId;
     int tempYear;
     int tempMonth;
     int tempDay;
