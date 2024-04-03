@@ -2,6 +2,7 @@
 #define COMPUTERVIEW_H
 
 #include <QMainWindow>
+#include <QtCore>
 
 namespace Ui {
   class ComputerView;
@@ -14,6 +15,12 @@ class ComputerView : public QMainWindow
 public:
   explicit ComputerView(QWidget *parent = nullptr);
   ~ComputerView();
+
+protected:
+    void readLogs();
+
+private slots:
+    void on_refreshButton_clicked();
 
 private:
   Ui::ComputerView *ui;

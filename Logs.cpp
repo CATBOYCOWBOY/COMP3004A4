@@ -6,9 +6,9 @@ Logs::Logs() {
 
 Logs::~Logs() {}
 
-<vector>Session Logs::parseLogs(string fileName) {
+//<vector>Session Logs::parseLogs(string fileName) {
     
-}
+//}
 
 void Logs::uploadLogsToComputer() {
 

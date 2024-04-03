@@ -20,7 +20,7 @@ class Session {
     private: 
         int id;
         QString startTime;
-        QString endTime
+        QString endTime;
         int startBaseline;
         int endBaseline;
 };

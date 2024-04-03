@@ -13,9 +13,6 @@ SOURCES += \
   computerview.cpp \
   main.cpp \
   mainwindow.cpp \
-  Button.cpp \
-  Display.cpp \
-  Light.cpp \
   SensorPool.cpp \
   Session.cpp \
   treatmentcontroller.cpp

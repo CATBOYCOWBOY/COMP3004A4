@@ -1,6 +1,6 @@
 #include "treatmentcontroller.h"
 
-TreatmentController::TreatmentController()
-{
+//TreatmentController::TreatmentController()
+//{
 
-}
+//}

@@ -17,11 +17,11 @@ class Logs {
 
         // member functions
         void uploadLogsToComputer();
-        string toString();
-        <vector>Session parseLogs(string fileName);
+        QString toString();
+        // <vector>Session parseLogs(string fileName);
 
     private:
-        <vector>Session sessions;
+        // <vector>Session sessions;
         int numSessions;
 };
 
