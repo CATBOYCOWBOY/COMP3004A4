@@ -81,7 +81,7 @@ void TreatmentController::onUpButtonPressed(int i)
   ui->waveDisplay->replot();
 }
 
-void TreatmentController::onDownButonPressed(int i)
+void TreatmentController::onDownButtonPressed(int i)
 {
   if (controllerId != i)
   {
@@ -114,7 +114,7 @@ void TreatmentController::onPlayButtonPressed(int i)
   emit treatmentStarted();
 }
 
-void TreatmentController::onPauseButonPressed(int i)
+void TreatmentController::onPauseButtonPressed(int i)
 {
   if (controllerId != i)
   {

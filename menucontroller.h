@@ -12,9 +12,9 @@ public:
 
 public slots:
   void onUpButtonPressed(int);
-  void onDownButonPressed(int);
+  void onDownButtonPressed(int);
   void onPlayButtonPressed(int);
-  void onPauseButonPressed(int);
+  void onPauseButtonPressed(int);
   void onStopButtonPressed(int);
 
 private:
