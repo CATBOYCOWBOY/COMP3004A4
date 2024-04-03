@@ -11,8 +11,8 @@ MenuController::MenuController(QObject *parent, Ui::MainWindow *mw, int i)
     exit(-1);
   }
   labelOptions[0] = ui->menuTabTreatment;
-  labelOptions[1] = ui->menuTabSettings;
-  labelOptions[2] = ui->menuTabLogs;
+  labelOptions[1] = ui->menuTabLogs;
+  labelOptions[2] = ui->menuTabSettings;
   setupUi();
 }
 
