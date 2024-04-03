@@ -8,8 +8,11 @@
 #define NUM_SITES 21
 
 #define TREATMENT_TAB_TEXT "Treatments"
+#define TREATMENT_TAB_INDEX 0
 #define LOGS_TAB_TEXT "Logs"
+#define LOGS_TAB_INDEX 1
 #define SETTINGS_TAB_TEXT "Date/time settings"
+#define SETTINGS_TAB_INDEX 2
 
 #define DISCONNECT_ALERT "Alert: EEG terminal(s) disconnected"
 #define POWER_ALERT "Alert: insufficient battery"

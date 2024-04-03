@@ -10,18 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
   computerview.cpp \
+  eegsensorpool.cpp \
   main.cpp \
   mainwindow.cpp \
-  Button.cpp \
-  Display.cpp \
-  Light.cpp \
   SensorPool.cpp \
   Session.cpp \
+  neuresetcontroller.cpp \
   treatmentcontroller.cpp
 
 HEADERS += \
   computerview.h \
   constants.h \
+  eegsensorpool.h \
   mainwindow.h \
   constants.h \
   SensorPool.h \

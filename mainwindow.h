@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QMutex>
 #include "computerview.h"
+#include "treatmentcontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,8 +31,11 @@ private:
   void uiSetup();
 
   QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
+  TreatmentController *treatmentController;
 
   bool isBatterySuffient;
   bool areAllEEGNodesConnected;
+
+
 };
 #endif // MAINWINDOW_H
