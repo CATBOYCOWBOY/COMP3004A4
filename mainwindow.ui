@@ -128,14 +128,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="menuTabSettings">
+        <widget class="QLabel" name="menuTabLogs">
          <property name="text">
           <string>TextLabel</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="menuTabLogs">
+        <widget class="QLabel" name="menuTabSettings">
          <property name="text">
           <string>TextLabel</string>
          </property>
@@ -274,8 +274,6 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>728</width>
-     <height>22</height>
      <width>1014</width>
      <height>20</height>
     </rect>

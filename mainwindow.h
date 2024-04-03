@@ -48,7 +48,6 @@ private:
   TimeController *timeController;
   void uiSetup();
 
-=======
   void connectNeuresetController(NeuresetController*);
 
   int viewSelectedTabIndex;
