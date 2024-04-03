@@ -28,7 +28,7 @@ private:
   bool isCableDisconnected = false;
   bool isSystemRunning = true;
 
-  int id;
+  int controllerId;
 };
 
 #endif // TREATMENTCONTROLLER_H
