@@ -33,13 +33,13 @@ void TimeController::onDeviceTimeUpdate()
     //updateTime();
 }
 
-void TimeController::updateTime()
+void TimeController::updateRealTime()
 {
     *currentDateTime = QDateTime::currentDateTime();
-    mw->dateTimeDisplay->setText(getTime());
+    //mw->dateTimeDisplay->setText(getTime());
 }
 
-void TimeController::setDateTime()
+void TimeController::setDateTime() //update the secondsDelay value
 {
     tempYear = 0;
     tempMonth = 0;
@@ -49,5 +49,6 @@ void TimeController::setDateTime()
     tempDate = QDate(tempYear, tempMonth, tempDay);
     tempTime = QTime(tempHour, tempMinute, 0, 0);
     tempDateTime = QDateTime(tempDate, tempTime);
-
+    updateRealTime();
+    secsDelay = currentDateTime->secsTo(tempDateTime);
 }

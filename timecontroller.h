@@ -22,7 +22,7 @@ signals:
     void deviceTimeUpdate();
     void shutOff();
 private:
-    void updateTime();
+    void updateRealTime();
     void setDateTime();
     qint64 secsDelay = 0;
     TimeUpdater *timeUpdater;
