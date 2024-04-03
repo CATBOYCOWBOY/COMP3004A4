@@ -92,6 +92,19 @@
        <string>TextLabel</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>260</y>
+        <width>83</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
@@ -261,6 +274,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
+     <width>728</width>
+     <height>22</height>
      <width>1014</width>
      <height>20</height>
     </rect>

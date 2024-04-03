@@ -15,6 +15,8 @@ SOURCES += \
   mainwindow.cpp \
   SensorPool.cpp \
   Session.cpp \
+    timecontroller.cpp \
+    timeupdater.cpp
   menucontroller.cpp \
   neuresetcontroller.cpp \
   treatmentcontroller.cpp
@@ -27,6 +29,8 @@ HEADERS += \
   constants.h \
   SensorPool.h \
   Session.h \
+  timecontroller.h \
+  timeupdater.h
   menucontroller.h \
   neuresetController.h \
   treatmentcontroller.h

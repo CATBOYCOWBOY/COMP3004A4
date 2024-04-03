@@ -6,6 +6,7 @@
 #include <QThread>
 #include <QMutex>
 #include "computerview.h"
+#include "timecontroller.h"
 #include "treatmentcontroller.h"
 #include "menucontroller.h"
 
@@ -44,13 +45,14 @@ private slots:
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
+  TimeController *timeController;
   void uiSetup();
 
+=======
   void connectNeuresetController(NeuresetController*);
 
   int viewSelectedTabIndex;
 
-  QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
   TreatmentController *treatmentController;
   MenuController *menuController;
 

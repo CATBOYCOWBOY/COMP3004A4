@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow), viewSelectedTabIndex(MENU_TAB_INDEX)
 {
+  timeController = new TimeController();
   this->computerView = new ComputerView(this);
   ui->setupUi(this);
   uiSetup();
@@ -20,12 +21,18 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
   delete ui;
+  delete timeController;
 }
 
 void MainWindow::uiSetup()
 {
   this->setStyleSheet(APP_STYLE_GLOBAL);
-  ui->dateTimeDisplay->setText(currentDateTime->toString());
+  ui->treatmentProgressLabel->setAlignment(Qt::AlignCenter);
+  ui->treatmentProgress->setValue(0);
+  ui->primaryTabs->setTabText(0, TREATMENT_TAB_TEXT);
+  ui->primaryTabs->setTabText(1, LOGS_TAB_TEXT);
+  ui->primaryTabs->setTabText(2, SETTINGS_TAB_TEXT);
+//  ui->dateTimeDisplay->setText(currentDateTime->toString());
   ui->primaryTabs->setTabText(LOGS_TAB_INDEX, LOGS_TAB_TEXT);
   ui->primaryTabs->setTabText(SETTINGS_TAB_INDEX, SETTINGS_TAB_TEXT);
   ui->primaryTabs->setTabText(MENU_TAB_INDEX, MENU_TAB_TEXT);
@@ -45,6 +52,13 @@ void MainWindow::on_computerViewAction_triggered()
 {
   computerView->show();
 }
+
+
+
+
+
+
+
 
 void MainWindow::on_menuButton_clicked()
 {
