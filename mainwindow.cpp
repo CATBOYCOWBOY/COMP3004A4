@@ -7,11 +7,12 @@ MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
   , ui(new Ui::MainWindow), viewSelectedTabIndex(MENU_TAB_INDEX)
 {
-  timeController = new TimeController();
-  this->computerView = new ComputerView(this);
   ui->setupUi(this);
   uiSetup();
 
+  this->computerView = new ComputerView(this);
+
+  timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
   treatmentController = new TreatmentController(this, ui, TREATMENT_TAB_INDEX);
   connectNeuresetController(treatmentController);
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);

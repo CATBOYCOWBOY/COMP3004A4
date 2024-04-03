@@ -1,7 +1,7 @@
 #include "timecontroller.h"
 #include <QDebug>
 
-TimeController::TimeController(QObject* parent, Ui::MainWindow* ui)
+TimeController::TimeController(QObject* parent, Ui::MainWindow* ui, int i): QObject{parent}, controllerId(i)
 {
     this->parent = parent;
     mw = ui;
@@ -30,13 +30,13 @@ void TimeController::onDeviceTimeUpdate()
     qDebug() << "onDeviceTimeUpdate";
     *currentDateTime = QDateTime::currentDateTime();
     qDebug() << getTime();
-    //updateTime();
+    updateRealTime();
 }
 
 void TimeController::updateRealTime()
 {
-    *currentDateTime = QDateTime::currentDateTime();
-    //mw->dateTimeDisplay->setText(getTime());
+  *currentDateTime = QDateTime::currentDateTime();
+  mw->dateTimeDisplay->setText(getTime());
 }
 
 void TimeController::setDateTime() //update the secondsDelay value
