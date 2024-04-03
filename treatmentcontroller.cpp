@@ -1,7 +1,7 @@
 #include "treatmentcontroller.h"
 #include "constants.h"
 
-TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, int i) : ui(mw), id(i)
+TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, int i) : ui(mw), controllerId(i)
 {
   if (!parent || !mw || i < 0)
   {
@@ -12,29 +12,44 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, in
   ui->treatmentProgress->setValue(0);
 }
 
-void TreatmentController::onUpButtonPressed(int)
+void TreatmentController::onUpButtonPressed(int i)
 {
-
+  if (controllerId != i)
+  {
+    return;
+  }
 }
 
-void TreatmentController::onDownButonPressed(int)
+void TreatmentController::onDownButonPressed(int i)
 {
-
+  if (controllerId != i)
+  {
+    return;
+  }
 }
 
-void TreatmentController::onPlayButtonPressed(int)
+void TreatmentController::onPlayButtonPressed(int i)
 {
-
+  if (controllerId != i)
+  {
+    return;
+  }
 }
 
-void TreatmentController::onPauseButonPressed(int)
+void TreatmentController::onPauseButonPressed(int i)
 {
-
+  if (controllerId != i)
+  {
+    return;
+  }
 }
 
-void TreatmentController::onStopButtonPressed(int)
+void TreatmentController::onStopButtonPressed(int i)
 {
-
+  if (controllerId != i)
+  {
+    return;
+  }
 }
 
 void TreatmentController::onBatteryLowCondition()

@@ -7,6 +7,7 @@
 #include <QMutex>
 #include "computerview.h"
 #include "treatmentcontroller.h"
+#include "menucontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +23,13 @@ public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
+signals:
+  void upButtonClicked(int);
+  void downButtonClicked(int);
+  void playButtonClicked(int);
+  void pauseButtonClicked(int);
+  void stopButtonClicked(int);
+
 private slots:
   void on_computerViewAction_triggered();
   void on_menuButton_clicked();
@@ -31,17 +39,22 @@ private slots:
   void on_pauseButton_clicked();
   void on_stopButton_clicked();
 
+  void on_primaryTabs_currentChanged(int index);
+
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
   void uiSetup();
 
+  void connectNeuresetController(NeuresetController*);
+
+  int viewSelectedTabIndex;
+
   QDateTime *currentDateTime = new QDateTime(QDateTime::currentDateTime());
   TreatmentController *treatmentController;
+  MenuController *menuController;
 
   bool isBatterySuffient;
   bool areAllEEGNodesConnected;
-
-
 };
 #endif // MAINWINDOW_H
