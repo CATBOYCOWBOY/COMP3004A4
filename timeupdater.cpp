@@ -14,7 +14,6 @@ void TimeUpdater::onShutOff()
 
 void TimeUpdater::run()
 {
-    qDebug() << "here";
     while (systemRunning){
         emit updateTime();
         QThread::msleep(1000);

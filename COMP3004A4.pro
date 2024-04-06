@@ -1,6 +1,6 @@
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++17
 
@@ -9,13 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Logs.cpp \
+  Logs.cpp \
   computerview.cpp \
-  eegsensorpool.cpp \
+  eegsensor.cpp \
   main.cpp \
   mainwindow.cpp \
   SensorPool.cpp \
   Session.cpp \
+  qcustomplot.cpp \
   timecontroller.cpp \
   timeupdater.cpp \
   menucontroller.cpp \
@@ -23,14 +24,15 @@ SOURCES += \
   treatmentcontroller.cpp
 
 HEADERS += \
-    Logs.h \
+  Logs.h \
   computerview.h \
   constants.h \
-  eegsensorpool.h \
+  eegsensor.h \
   mainwindow.h \
   constants.h \
   SensorPool.h \
   Session.h \
+  qcustomplot.h \
   timecontroller.h \
   timeupdater.h \
   menucontroller.h \
