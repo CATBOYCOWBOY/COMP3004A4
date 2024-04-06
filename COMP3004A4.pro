@@ -11,20 +11,29 @@ CONFIG += c++17
 SOURCES += \
     Logs.cpp \
   computerview.cpp \
+  eegsensorpool.cpp \
   main.cpp \
   mainwindow.cpp \
   SensorPool.cpp \
   Session.cpp \
+  timecontroller.cpp \
+  timeupdater.cpp \
+  menucontroller.cpp \
+  neuresetcontroller.cpp \
   treatmentcontroller.cpp
 
 HEADERS += \
     Logs.h \
   computerview.h \
   constants.h \
+  eegsensorpool.h \
   mainwindow.h \
   constants.h \
   SensorPool.h \
   Session.h \
+  timecontroller.h \
+  timeupdater.h \
+  menucontroller.h \
   neuresetController.h \
   treatmentcontroller.h
 

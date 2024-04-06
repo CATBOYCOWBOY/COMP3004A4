@@ -4,12 +4,22 @@
 #define APP_STYLE_GLOBAL "color:black; background-color: white;"
 #define SCROLL_AREA_STYLE "* {padding-left: 5px; padding-top: 6px;}"
 
+#define HIGHLIGHTED_STYLE "* {background-color: #D3D3D3;}"
+#define DEFAULT_MENU_STYLE "* {background-color: white}"
+
 #define ONE_MINUTE 5
 #define NUM_SITES 21
 
 #define TREATMENT_TAB_TEXT "Treatments"
+#define TREATMENT_TAB_INDEX 0
 #define LOGS_TAB_TEXT "Logs"
+#define LOGS_TAB_INDEX 1
 #define SETTINGS_TAB_TEXT "Date/time settings"
+#define SETTINGS_TAB_INDEX 2
+#define MENU_TAB_TEXT "Menu"
+#define MENU_TAB_INDEX 3
+
+#define INITIAL_VIEW_TAB_INDEX 3
 
 #define DISCONNECT_ALERT "Alert: EEG terminal(s) disconnected"
 #define POWER_ALERT "Alert: insufficient battery"
