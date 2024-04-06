@@ -59,7 +59,6 @@ void MenuController::onStopButtonPressed(int)
 
 void MenuController::setupUi()
 {
-  qDebug() << "here";
   labelOptions[selectedOptionIndex]->setStyleSheet(QString::fromStdString(HIGHLIGHTED_STYLE));
   ui->menuTabTreatment->setText(QString::fromStdString("Neureset EEG Treatment"));
   ui->menuTabTreatment->setAlignment(Qt::AlignCenter);
