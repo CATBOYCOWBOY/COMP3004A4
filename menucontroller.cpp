@@ -67,3 +67,4 @@ void MenuController::setupUi()
   ui->menuTabLogs->setAlignment(Qt::AlignCenter);
   ui->menuTabLogs->setText(QString::fromStdString("Treatment Logs"));
 }
+

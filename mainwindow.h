@@ -42,6 +42,8 @@ private slots:
 
   void on_primaryTabs_currentChanged(int index);
 
+  void on_powerButton_clicked();
+
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;

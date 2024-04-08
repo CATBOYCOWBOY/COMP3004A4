@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   uiSetup();
 
-  this->computerView = new ComputerView(this);
+  computerView = new ComputerView(this);
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
   treatmentController = new TreatmentController(this, ui, TREATMENT_TAB_INDEX);
@@ -23,6 +23,8 @@ MainWindow::~MainWindow()
 {
   delete ui;
   delete timeController;
+  delete treatmentController;
+  delete computerView;
 }
 
 void MainWindow::uiSetup()
@@ -54,46 +56,33 @@ void MainWindow::on_computerViewAction_triggered()
   computerView->show();
 }
 
-
-
-
-
-
-
-
 void MainWindow::on_menuButton_clicked()
 {
-  qDebug() << "menu btton";
   ui->primaryTabs->setCurrentIndex(MENU_TAB_INDEX);
 }
 
 void MainWindow::on_upButton_clicked()
 {
-  qDebug() << "up button";
   emit upButtonClicked(viewSelectedTabIndex);
 }
 
 void MainWindow::on_downButton_clicked()
 {
-  qDebug() << "down button";
   emit downButtonClicked(viewSelectedTabIndex);
 }
 
 void MainWindow::on_playButton_clicked()
 {
-  qDebug() << "play button";
   emit playButtonClicked(viewSelectedTabIndex);
 }
 
 void MainWindow::on_pauseButton_clicked()
 {
-  qDebug() << "pause button";
   emit pauseButtonClicked(viewSelectedTabIndex);
 }
 
 void MainWindow::on_stopButton_clicked()
 {
-  qDebug() << "stop button";
   emit stopButtonClicked(viewSelectedTabIndex);
 }
 
@@ -103,3 +92,8 @@ void MainWindow::on_primaryTabs_currentChanged(int index)
   viewSelectedTabIndex = index;
 }
 
+void MainWindow::on_powerButton_clicked()
+{
+  qDebug() << "shutting down...";
+  QCoreApplication::exit();
+}

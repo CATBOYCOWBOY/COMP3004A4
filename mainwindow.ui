@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -34,7 +34,7 @@
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>170</y>
+        <y>380</y>
         <width>281</width>
         <height>31</height>
        </rect>
@@ -47,7 +47,7 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>140</y>
+        <y>340</y>
         <width>151</width>
         <height>16</height>
        </rect>
@@ -62,6 +62,29 @@
         <x>200</x>
         <y>220</y>
         <width>281</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCustomPlot" name="waveDisplay" native="true">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>110</y>
+        <width>481</width>
+        <height>201</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="waveLabel">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>60</y>
+        <width>231</width>
         <height>20</height>
        </rect>
       </property>
@@ -267,6 +290,19 @@
       <normaloff>:/new/prefix1/assets/menu.png</normaloff>:/new/prefix1/assets/menu.png</iconset>
     </property>
    </widget>
+   <widget class="QPushButton" name="powerButton">
+    <property name="geometry">
+     <rect>
+      <x>899</x>
+      <y>10</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Power Button</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -286,15 +322,15 @@
      <property name="title">
       <string>Battery drain</string>
      </property>
-     <addaction name="actionSet_low"/>
-     <addaction name="actionReset"/>
+     <addaction name="batteryLowAction"/>
+     <addaction name="batteryResetAction"/>
     </widget>
     <widget class="QMenu" name="menuEEG_terminals">
      <property name="title">
       <string>EEG terminals</string>
      </property>
-     <addaction name="actionconnect"/>
-     <addaction name="actiondisconnect"/>
+     <addaction name="connectTerminalAction"/>
+     <addaction name="disconnectTerminalAction"/>
     </widget>
     <addaction name="menuEEG_terminals"/>
     <addaction name="batteryOptions"/>
@@ -302,12 +338,12 @@
    </widget>
    <addaction name="neuresetMenu"/>
   </widget>
-  <action name="actionSet_low">
+  <action name="batteryLowAction">
    <property name="text">
     <string>Set low</string>
    </property>
   </action>
-  <action name="actionReset">
+  <action name="batteryResetAction">
    <property name="text">
     <string>Reset</string>
    </property>
@@ -322,17 +358,30 @@
     <string>Computer view</string>
    </property>
   </action>
-  <action name="actionconnect">
+  <action name="connectTerminalAction">
    <property name="text">
     <string>connect</string>
    </property>
   </action>
-  <action name="actiondisconnect">
+  <action name="disconnectTerminalAction">
    <property name="text">
     <string>disconnect</string>
    </property>
   </action>
+  <action name="setWavesAction">
+   <property name="text">
+    <string>Set Wave Values</string>
+   </property>
+  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>

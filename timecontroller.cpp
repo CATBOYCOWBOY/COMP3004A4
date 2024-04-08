@@ -3,33 +3,33 @@
 
 TimeController::TimeController(QObject* parent, Ui::MainWindow* ui, int i): QObject{parent}, controllerId(i)
 {
-    this->parent = parent;
-    mw = ui;
-    timeUpdater = new TimeUpdater();
-    qthread = new QThread();
-    timeUpdater->moveToThread(qthread);
-    connect(qthread, &QThread::started, timeUpdater, &TimeUpdater::run);
-    connect(timeUpdater, &TimeUpdater::shutOff, qthread, &QThread::quit, Qt::DirectConnection);
-    connect(qthread, &QThread::finished, timeUpdater, &TimeUpdater::deleteLater);
-    connect(timeUpdater, &TimeUpdater::updateTime, this, &TimeController::onDeviceTimeUpdate, Qt::DirectConnection);
-    connect(this, &TimeController::shutOff, timeUpdater, &TimeUpdater::onShutOff, Qt::DirectConnection);
-    qthread->start();
+  this->parent = parent;
+  mw = ui;
+  timeUpdater = new TimeUpdater();
+  qthread = new QThread();
+  timeUpdater->moveToThread(qthread);
+  connect(qthread, &QThread::started, timeUpdater, &TimeUpdater::run);
+  connect(timeUpdater, &TimeUpdater::shutOff, qthread, &QThread::quit, Qt::DirectConnection);
+  connect(qthread, &QThread::finished, timeUpdater, &TimeUpdater::deleteLater);
+  connect(timeUpdater, &TimeUpdater::updateTime, this, &TimeController::onDeviceTimeUpdate, Qt::DirectConnection);
+  connect(this, &TimeController::shutOff, timeUpdater, &TimeUpdater::onShutOff, Qt::DirectConnection);
+  qthread->start();
 }
 TimeController::~TimeController()
 {
-    emit shutOff();
+  emit shutOff();
 }
 
 QString TimeController::getTime()
 {
-    return (currentDateTime->addSecs(secsDelay)).toString();
+  return (currentDateTime->addSecs(secsDelay)).toString();
 }
 
 void TimeController::onDeviceTimeUpdate()
 {
-    qDebug() << "onDeviceTimeUpdate";
+    // qDebug() << "onDeviceTimeUpdate";
     *currentDateTime = QDateTime::currentDateTime();
-    qDebug() << getTime();
+    // qDebug() << getTime();
     updateRealTime();
 }
 
