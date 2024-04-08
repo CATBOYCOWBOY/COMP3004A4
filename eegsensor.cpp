@@ -29,7 +29,7 @@ const QVector<double> EEGSensor::getCurrentSeries()
         betaAmp * sin(betaFreq * TWO_PI * i * (INTERVAL_END / NUM_SAMPLES)) +
         thetaAmp * sin(thetaFreq * TWO_PI * i * (INTERVAL_END / NUM_SAMPLES)) +
         deltaAmp * sin(deltaFreq * TWO_PI * i * (INTERVAL_END / NUM_SAMPLES)) +
-        OFFSET_FREQ_STRENGTH * sin((OFFSET_FREQ_VALUE * offsetsApplied) * TWO_PI * i * (INTERVAL_END/NUM_SAMPLES));
+        OFFSET_FREQ_STRENGTH * sin((OFFSET_FREQ_VALUE + getBaselineFreq()) * TWO_PI * i * (INTERVAL_END/NUM_SAMPLES));
   }
   return currentYSeries;
 }
@@ -117,14 +117,31 @@ void EEGSensor::runTreatment()
   double baseline = getBaselineFreq();
   emit treatmentStarted(baseline);
 
+  // 4 rounds of treatment, 5 second baseline 1 second offset application
+  // should apply 80 hz offset frequency at 200 microvolts by the end
   for (int i = 0; i < NUM_FEEDBACK_ROUNDS; i++)
   {
     if (!isSensorOperating || !isTreatmentOperating)
     {
       return;
     }
-    offsetsApplied += 1;
-    errorHandler();
+
+    // 5 seconds, establish baseline
+    for (int j = 0; j < 50; j++)
+    {
+      QThread::msleep(9);
+      errorHandler();
+    }
+
+    // 1 second, give treatment
+    for (int j = 0; j < NUM_OFFSETS; j++)
+    {
+      errorHandler();
+      QThread::msleep(64); // very close to 1/16 second
+      offsetsApplied += 1;
+      emit frequencyUpdated(sensorNumber);
+    }
+
     QThread::msleep(100);
   }
 

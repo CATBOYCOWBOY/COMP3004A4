@@ -90,8 +90,7 @@ void TreatmentController::onDownButonPressed(int i)
   std::stringstream labelText;
   labelText << "Sensor " << selectedSensorId + 1 << " readings";
   ui->waveLabel->setText(QString::fromStdString(labelText.str()));
-  const QVector<double> newSeries = sensors[selectedSensorId]->getCurrentSeries();
-  ui->waveDisplay->graph(0)->setData(xSeries, newSeries);
+  ui->waveDisplay->graph(0)->setData(xSeries, sensors[selectedSensorId]->getCurrentSeries());
   ui->waveDisplay->replot();
 }
 
@@ -157,10 +156,14 @@ void TreatmentController::onCableReconnect()
 
 void TreatmentController::onWaveFormUpdate(int i)
 {
-  if (i == selectedSensorId)
-    {
-      return;
-    }
+  if (i != selectedSensorId)
+  {
+    return;
+  }
+  controllerMutex->lock();
+  ui->waveDisplay->graph(0)->setData(xSeries, sensors[selectedSensorId]->getCurrentSeries());
+  ui->waveDisplay->replot();
+  controllerMutex->unlock();
 }
 
 void TreatmentController::onSensorFinished(double i)
@@ -225,6 +228,7 @@ void TreatmentController::connectSensorThreads(EEGSensor *sensor, QThread *threa
 
   connect(sensor, &EEGSensor::treatmentEnded, this, &TreatmentController::onSensorFinished, Qt::DirectConnection);
   connect(sensor, &EEGSensor::treatmentStarted, this, &TreatmentController::onSensorStarted, Qt::DirectConnection);
+  connect(sensor, &EEGSensor::frequencyUpdated, this, &TreatmentController::onWaveFormUpdate, Qt::DirectConnection);
 
   connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);
 }
