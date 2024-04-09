@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
   connectNeuresetController(treatmentController);
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
+
+  // connect treatment coontroller log treatment to logs controller like this
+  connect(treatmentController, &TreatmentController::logTreatment, this, &MainWindow::testTreatmentLog, Qt::DirectConnection);
 }
 
 MainWindow::~MainWindow()
@@ -96,4 +99,9 @@ void MainWindow::on_powerButton_clicked()
 {
   qDebug() << "NEURESET SHUTTING DOWN...";
   QCoreApplication::exit();
+}
+
+void MainWindow::testTreatmentLog(const QString &string)
+{
+  qDebug() << "logging " << string;
 }

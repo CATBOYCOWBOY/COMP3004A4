@@ -197,7 +197,7 @@ void TreatmentController::onSensorFinished(double i)
                         QString::number(startingSumBaseline / NUM_SITES)+
                         QString::fromStdString(",") +
                         timeController->getTime() +
-                        QString::fromStdString("") +
+                        QString::fromStdString(",") +
                         QString::number(endingSumBaseline / NUM_SITES);
     emit logTreatment(logString);
   }

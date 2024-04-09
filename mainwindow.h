@@ -44,6 +44,8 @@ private slots:
 
   void on_powerButton_clicked();
 
+  void testTreatmentLog(const QString&);
+
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;

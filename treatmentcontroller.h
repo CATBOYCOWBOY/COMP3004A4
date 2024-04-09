@@ -29,7 +29,7 @@ signals:
   void sensorDisconnected();
   void batteryReset();
   void connectionReset();
-  void logTreatment(QString&);
+  void logTreatment(const QString&);
   void shutOff();
 
 public slots:
