@@ -2,18 +2,19 @@
 #include "treatmentcontroller.h"
 #include "constants.h"
 
-TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, int i) :
+TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i) :
   ui(mw),
+  timeController(tc),
   controllerMutex(new QMutex()),
   batteryTreatmentsLeft(BATTERY_TREATMENT_CAPACITY),
   isTreatmentRunning(false),
   controllerId(i),
   selectedSensorId(0),
-  prevTreatmentString(""),
   numCyclesRemaining(0),
   unfinishedSensors(0),
   defaultYSeries(NUM_SAMPLES),
-  xSeries(NUM_SAMPLES)
+  xSeries(NUM_SAMPLES),
+  treatmentStartTime("")
 {
   if (!parent || !mw || i < 0)
   {
@@ -109,6 +110,7 @@ void TreatmentController::onPlayButtonPressed(int i)
   }
   qDebug() << "NEURESET STARTING TREATMENT";
   ui->treatmentProgress->setValue(0);
+  treatmentStartTime = timeController->getTime();
   emit treatmentStarted();
 }
 
@@ -190,6 +192,14 @@ void TreatmentController::onSensorFinished(double i)
     batteryTreatmentsLeft -= 1;
     qDebug() << "init baseline: " << startingSumBaseline / NUM_SITES;
     qDebug() << "end baseline: " << endingSumBaseline / NUM_SITES;
+    QString logString = treatmentStartTime +
+                        QString::fromStdString(",") +
+                        QString::number(startingSumBaseline / NUM_SITES)+
+                        QString::fromStdString(",") +
+                        timeController->getTime() +
+                        QString::fromStdString("") +
+                        QString::number(endingSumBaseline / NUM_SITES);
+    emit logTreatment(logString);
   }
   controllerMutex->unlock();
 }
