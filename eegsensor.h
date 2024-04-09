@@ -61,7 +61,7 @@ private:
   // counting offsets of 5 mhz, as well as
   int offsetsApplied = 0;
 
-  float feedbacks[NUM_FEEDBACK_ROUNDS][NUM_OFFSETS];
+  float feedbackFreqs[NUM_FEEDBACK_ROUNDS][NUM_OFFSETS];
 
   double baselineFreq; // calculated based on current alpha, beta, theta, delta values
 

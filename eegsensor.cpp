@@ -12,7 +12,7 @@ EEGSensor::EEGSensor(QObject *parent, int i):
   {
     for (int j = 0; j < NUM_OFFSETS; j++)
     {
-      feedbacks[i][j] = 0;
+      feedbackFreqs[i][j] = 0;
     }
   }
 }
@@ -153,7 +153,7 @@ void EEGSensor::runTreatment()
       errorHandler();
       QThread::msleep(64); // very close to 1/16 second
       offsetsApplied += 1;
-      feedbacks[i][j] = getBaselineFreq() + 1;
+      feedbackFreqs[i][j] = getBaselineFreq() + 1;
       emit frequencyUpdated(sensorNumber);
     }
     emit cycleComplete();
@@ -180,7 +180,7 @@ void EEGSensor::runTreatment()
   {
     for (int j = 0; j < NUM_OFFSETS; j++)
     {
-      feedbacks[i][j] = 0;
+      feedbackFreqs[i][j] = 0;
     }
   }
 
@@ -246,7 +246,7 @@ double EEGSensor::getBaselineFreq() const
   {
     for (int j = 0; j < NUM_OFFSETS; j++)
     {
-      feedbackSum += feedbacks[i][j];
+      feedbackSum += feedbackFreqs[i][j] * OFFSET_FREQ_STRENGTH;
     }
   }
 
@@ -254,6 +254,6 @@ double EEGSensor::getBaselineFreq() const
           betaFreq * betaAmp +
           thetaFreq * thetaAmp +
           deltaFreq * deltaAmp +
-          feedbackSum * OFFSET_FREQ_STRENGTH)/
+          feedbackSum)/
       (alphaAmp + betaAmp + thetaAmp + deltaAmp + offsetsApplied * OFFSET_FREQ_STRENGTH);
 }
