@@ -129,7 +129,7 @@ void EEGSensor::runTreatment()
     // 5 seconds, establish baseline
     for (int j = 0; j < 50; j++)
     {
-      QThread::msleep(9);
+      QThread::msleep(95);
       errorHandler();
     }
 
@@ -158,12 +158,12 @@ void EEGSensor::errorHandler()
 
   while((isConnectionsBroken || isBatteryLow) && isSensorOperating)
   {
-    msElapsed += 10;
+    msElapsed += 100;
     if (msElapsed >= FIVE_MINUTES_MS || !isSensorOperating)
     {
       emit fiveMinutesDisconnected();
     }
-    QThread::msleep(10);
+    QThread::msleep(100);
   }
 }
 
