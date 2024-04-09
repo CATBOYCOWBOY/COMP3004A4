@@ -31,6 +31,7 @@ const QVector<double> EEGSensor::getCurrentSeries()
         betaAmp * sin(betaFreq * TWO_PI * i * (INTERVAL_END / NUM_SAMPLES)) +
         thetaAmp * sin(thetaFreq * TWO_PI * i * (INTERVAL_END / NUM_SAMPLES)) +
         deltaAmp * sin(deltaFreq * TWO_PI * i * (INTERVAL_END / NUM_SAMPLES)) +
+        // since getBaseLineFreq() factors in the previously applied offsets, all we have to do is account for one most recent one
         OFFSET_FREQ_STRENGTH * sin((OFFSET_FREQ_VALUE + getBaselineFreq()) * TWO_PI * i * (INTERVAL_END/NUM_SAMPLES));
   }
   return currentYSeries;
@@ -89,6 +90,7 @@ void EEGSensor::onTreatmentStopped()
   sensorMutex->lock();
   isTreatmentPaused = false;
   isTreatmentOperating = false;
+  resetSensorValues();
   sensorMutex->unlock();
 }
 
@@ -153,7 +155,7 @@ void EEGSensor::runTreatment()
       errorHandler();
       QThread::msleep(64); // very close to 1/16 second
       offsetsApplied += 1;
-      feedbackFreqs[i][j] = getBaselineFreq() + 1;
+      feedbackFreqs[i][j] = getBaselineFreq() + OFFSET_FREQ_VALUE;
       emit frequencyUpdated(sensorNumber);
     }
     emit cycleComplete();
@@ -183,7 +185,6 @@ void EEGSensor::runTreatment()
       feedbackFreqs[i][j] = 0;
     }
   }
-
 }
 
 void EEGSensor::errorHandler()
@@ -232,15 +233,19 @@ void EEGSensor::initializeValues()
 
 void EEGSensor::resetSensorValues()
 {
-  for (int i = 0; i < NUM_SAMPLES; i++)
+  alphaAmp = betaAmp = thetaAmp = deltaAmp = 0;
+
+  for (int i = 0; i < NUM_FEEDBACK_ROUNDS; i++)
   {
-    currentYSeries[i] = 0;
+    for (int j = 0; j < NUM_OFFSETS; j++)
+    {
+      feedbackFreqs[i][j] = 0;
+    }
   }
 }
 
 double EEGSensor::getBaselineFreq() const
 {
-  qDebug() << "OffsetsApplied: " << offsetsApplied;
   float feedbackSum = 0;
   for (int i = 0; i < NUM_FEEDBACK_ROUNDS; i++)
   {

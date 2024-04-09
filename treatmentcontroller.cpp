@@ -182,9 +182,9 @@ void TreatmentController::onSensorFinished(double i)
   numCyclesRemaining = numCyclesRemaining - 1;
   ui->treatmentProgress->setValue(treatmentPercentage());
 
-  if (unfinishedSensors == 0)
+  if (unfinishedSensors == 0) // on completion of full treatment
   {
-    qDebug() << "treatment done";
+    qDebug() << "NEURESET TREATMENT DONE";
     isTreatmentRunning = false;
     isTreatmentPaused = false;
     batteryTreatmentsLeft -= 1;

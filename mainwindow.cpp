@@ -21,10 +21,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-  delete ui;
   delete timeController;
   delete treatmentController;
   delete computerView;
+  delete ui;
 }
 
 void MainWindow::uiSetup()
@@ -94,6 +94,6 @@ void MainWindow::on_primaryTabs_currentChanged(int index)
 
 void MainWindow::on_powerButton_clicked()
 {
-  qDebug() << "shutting down...";
+  qDebug() << "NEURESET SHUTTING DOWN...";
   QCoreApplication::exit();
 }
