@@ -55,7 +55,7 @@
 
 #define ONE_MINUTE 5 // number of seconds in a Neureset minute, adjustable
 #define FIVE_MINUTES_MS 300000
-#define NUM_SITES 7
+#define NUM_SITES 1
 #define TREATMENT_INCREMENT 5 // increment of treatment frequency, in hz
 
 #endif // CONSTANTS_H

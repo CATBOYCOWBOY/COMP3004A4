@@ -2,17 +2,19 @@
 #include "treatmentcontroller.h"
 #include "constants.h"
 
-TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, int i) :
+TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i) :
   ui(mw),
+  timeController(tc),
   controllerMutex(new QMutex()),
   batteryTreatmentsLeft(BATTERY_TREATMENT_CAPACITY),
   isTreatmentRunning(false),
   controllerId(i),
   selectedSensorId(0),
-  prevTreatmentString(""),
+  numCyclesRemaining(0),
   unfinishedSensors(0),
   defaultYSeries(NUM_SAMPLES),
-  xSeries(NUM_SAMPLES)
+  xSeries(NUM_SAMPLES),
+  treatmentStartTime("")
 {
   if (!parent || !mw || i < 0)
   {
@@ -101,13 +103,15 @@ void TreatmentController::onPlayButtonPressed(int i)
     return;
   }
   if (isTreatmentPaused)
-    {
-      emit treatmentUnpaused();
-    }
-  if (!isTreatmentRunning)
   {
-    emit treatmentStarted();
+    isTreatmentPaused = false;
+    emit treatmentUnpaused();
+    return;
   }
+  qDebug() << "NEURESET STARTING TREATMENT";
+  ui->treatmentProgress->setValue(0);
+  treatmentStartTime = timeController->getTime();
+  emit treatmentStarted();
 }
 
 void TreatmentController::onPauseButonPressed(int i)
@@ -130,6 +134,12 @@ void TreatmentController::onStopButtonPressed(int i)
   {
     return;
   }
+  qDebug() << "NEURESET STOPPING TREATMENT";
+  ui->treatmentProgress->setValue(0);
+  unfinishedSensors = 0;
+  numCyclesRemaining = 0;
+  ui->waveDisplay->graph(0)->setData(xSeries, defaultYSeries);
+  ui->waveDisplay->replot();
   emit treatmentStopped();
 }
 
@@ -171,13 +181,25 @@ void TreatmentController::onSensorFinished(double i)
   controllerMutex->lock();
   unfinishedSensors = unfinishedSensors - 1;
   endingSumBaseline = endingSumBaseline + i;
+  numCyclesRemaining = numCyclesRemaining - 1;
+  ui->treatmentProgress->setValue(treatmentPercentage());
 
-  if (unfinishedSensors == 0)
+  if (unfinishedSensors == 0) // on completion of full treatment
   {
-    qDebug() << "treatment done";
+    qDebug() << "NEURESET TREATMENT DONE";
     isTreatmentRunning = false;
     isTreatmentPaused = false;
     batteryTreatmentsLeft -= 1;
+    qDebug() << "init baseline: " << startingSumBaseline / NUM_SITES;
+    qDebug() << "end baseline: " << endingSumBaseline / NUM_SITES;
+    QString logString = treatmentStartTime +
+                        QString::fromStdString(",") +
+                        QString::number(startingSumBaseline / NUM_SITES)+
+                        QString::fromStdString(",") +
+                        timeController->getTime() +
+                        QString::fromStdString(",") +
+                        QString::number(endingSumBaseline / NUM_SITES);
+    emit logTreatment(logString);
   }
   controllerMutex->unlock();
 }
@@ -185,8 +207,17 @@ void TreatmentController::onSensorFinished(double i)
 void TreatmentController::onSensorStarted(double i)
 {
   controllerMutex->lock();
+  numCyclesRemaining = numCyclesRemaining + NUM_FEEDBACK_ROUNDS + 1; // 1 cycle for each feedback round, 1 for final analysis
   unfinishedSensors = unfinishedSensors + 1;
   startingSumBaseline = startingSumBaseline + i;
+  controllerMutex->unlock();
+}
+
+void TreatmentController::onCycleComplete()
+{
+  controllerMutex->lock();
+  numCyclesRemaining = numCyclesRemaining - 1;
+  ui->treatmentProgress->setValue(treatmentPercentage());
   controllerMutex->unlock();
 }
 
@@ -209,6 +240,13 @@ void TreatmentController::initializeSensorsAndThreads()
   }
 }
 
+int TreatmentController::treatmentPercentage()
+{
+  float de = static_cast<float>(NUM_SITES * NUM_FEEDBACK_ROUNDS + NUM_SITES);
+  float num = static_cast<float>(NUM_SITES * NUM_FEEDBACK_ROUNDS + NUM_SITES - numCyclesRemaining);
+  return static_cast<int>((num/de) * 100);
+}
+
 void TreatmentController::connectSensorThreads(EEGSensor *sensor, QThread *thread)
 {
   connect(thread, &QThread::started, sensor, &EEGSensor::run);
@@ -229,6 +267,7 @@ void TreatmentController::connectSensorThreads(EEGSensor *sensor, QThread *threa
   connect(sensor, &EEGSensor::treatmentEnded, this, &TreatmentController::onSensorFinished, Qt::DirectConnection);
   connect(sensor, &EEGSensor::treatmentStarted, this, &TreatmentController::onSensorStarted, Qt::DirectConnection);
   connect(sensor, &EEGSensor::frequencyUpdated, this, &TreatmentController::onWaveFormUpdate, Qt::DirectConnection);
+  connect(sensor, &EEGSensor::cycleComplete, this, &TreatmentController::onCycleComplete, Qt::DirectConnection);
 
   connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);
 }
