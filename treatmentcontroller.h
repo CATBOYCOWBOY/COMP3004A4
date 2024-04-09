@@ -42,6 +42,7 @@ public slots:
   void onWaveFormUpdate(int);
   void onSensorFinished(double);
   void onSensorStarted(double);
+  void onCycleComplete();
 
   void onFiveMinutesDisconnected();
 private:
@@ -62,6 +63,7 @@ private:
   EEGSensor* sensors [NUM_SITES];
   QThread* threads[NUM_SITES];
 
+  int numCyclesRemaining; // number of treatment cycles and final analysis remaning, used for calculating progress
   int unfinishedSensors;
   double startingSumBaseline;
   double endingSumBaseline;
@@ -72,6 +74,8 @@ private:
   void initializeSensorsAndThreads();
   void connectSensorThreads(EEGSensor*, QThread*);
   void updateTreatmentString();
+
+  int treatmentPercentage();
 };
 
 #endif // TREATMENTCONTROLLER_H

@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QVector>
 #include <QMutex>
-#include <random>
 #include <QThread>
+#include "constants.h"
 
 class EEGSensor : public QObject
 {
@@ -21,6 +21,7 @@ signals:
   void treatmentStarted(double);
   void treatmentEnded(double);
   void frequencyUpdated(int);
+  void cycleComplete();
 
   void fiveMinutesDisconnected();
 
@@ -60,14 +61,8 @@ private:
   // counting offsets of 5 mhz, as well as
   int offsetsApplied = 0;
 
-  std::normal_distribution<float> alphaDist;
-  std::normal_distribution<float> betaDist;
-  std::normal_distribution<float> thetaDist;
-  std::normal_distribution<float> deltaDist;
+  float feedbacks[NUM_FEEDBACK_ROUNDS][NUM_OFFSETS];
 
-  std::default_random_engine rand;
-
-  std::random_device randomGenerator;
   double baselineFreq; // calculated based on current alpha, beta, theta, delta values
 
   QVector<double> currentYSeries;
@@ -75,7 +70,9 @@ private:
 
   void runTreatment();
   void errorHandler();
+  void pauseHandler();
   void initializeValues();
+  void resetSensorValues();
   double getBaselineFreq() const;
 };
 
