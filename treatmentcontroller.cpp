@@ -2,8 +2,9 @@
 #include "treatmentcontroller.h"
 #include "constants.h"
 
-TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i) :
+TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i, QList<LedLight*>* leds) :
   ui(mw),
+  ledLights(leds),
   timeController(tc),
   controllerMutex(new QMutex()),
   batteryTreatmentsLeft(BATTERY_TREATMENT_CAPACITY),
@@ -34,6 +35,12 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   connect(ui->batteryResetAction, &QAction::triggered, this, &TreatmentController::onBatteryResetCondition);
   connect(ui->disconnectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableDisconnect);
   connect(ui->connectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableReconnect);
+
+  //connect with LED behavior
+  ledLights->at(0)->toggle(); //assume the eeg is connected at the beginning the device is on, blue light is on
+  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(0), &LedLight::toggle); // if disconnect, turn off blue light
+  connect(this, &TreatmentController::connectionReset, ledLights->at(0), &LedLight::toggle); // if reconnect, turn on blue light
+  connect(this, &TreatmentController::treatmentStarted, ledLights->at(1), &LedLight::toggle); // if treatment starts, turn on green light
 
   for (int i = 0; i < NUM_SAMPLES; i++)
   {
@@ -179,6 +186,7 @@ void TreatmentController::onWaveFormUpdate(int i)
 void TreatmentController::onSensorFinished(double i)
 {
   controllerMutex->lock();
+  qDebug() << "Sensor finished";
   unfinishedSensors = unfinishedSensors - 1;
   endingSumBaseline = endingSumBaseline + i;
   numCyclesRemaining = numCyclesRemaining - 1;
@@ -207,6 +215,7 @@ void TreatmentController::onSensorFinished(double i)
 void TreatmentController::onSensorStarted(double i)
 {
   controllerMutex->lock();
+  qDebug() << "Sensor started";
   numCyclesRemaining = numCyclesRemaining + NUM_FEEDBACK_ROUNDS + 1; // 1 cycle for each feedback round, 1 for final analysis
   unfinishedSensors = unfinishedSensors + 1;
   startingSumBaseline = startingSumBaseline + i;
@@ -269,5 +278,5 @@ void TreatmentController::connectSensorThreads(EEGSensor *sensor, QThread *threa
   connect(sensor, &EEGSensor::frequencyUpdated, this, &TreatmentController::onWaveFormUpdate, Qt::DirectConnection);
   connect(sensor, &EEGSensor::cycleComplete, this, &TreatmentController::onCycleComplete, Qt::DirectConnection);
 
-  connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);
+  connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);  
 }

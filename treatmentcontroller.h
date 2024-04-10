@@ -9,6 +9,7 @@
 #include "ui_mainwindow.h"
 #include "eegsensor.h"
 #include "timecontroller.h"
+#include "CustomWidgets/ledlight.h"
 
 class TreatmentController: public NeuresetController
 {
@@ -17,7 +18,8 @@ public:
   TreatmentController(QObject *parent = nullptr,
                       Ui::MainWindow *mw = nullptr,
                       TimeController *tc = nullptr,
-                      int i = -1);
+                      int i = -1,
+                      QList<LedLight*>* ledLights = nullptr);
   ~TreatmentController();
 
 signals:
@@ -52,6 +54,7 @@ public slots:
   void onFiveMinutesDisconnected();
 private:
   Ui::MainWindow *ui;
+  QList<LedLight*>* ledLights;
   TimeController *timeController;
   QMutex* controllerMutex;
   int batteryTreatmentsLeft;
