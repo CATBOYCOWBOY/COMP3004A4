@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "constants.h"
 #include "QDebug"
+#include "Logs.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -9,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
   uiSetup();
+
+  Logs newlogs = new Logs();
+  newlogs->parseLogs();
 
   computerView = new ComputerView(this);
 

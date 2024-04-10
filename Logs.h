@@ -2,10 +2,9 @@
 #define LOGS_H
 
 #include "Session.h"
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
+#include <QVector>
+#include <QtCore>
+#include <QString>
 
 class Logs {
     public:
@@ -17,12 +16,11 @@ class Logs {
 
         // member functions
         void uploadLogsToComputer();
-        QString toString();
-        // <vector>Session parseLogs(string fileName);
+        QString logsToString();
+        QVector<Session> parseLogs();
 
     private:
-        // <vector>Session sessions;
-        int numSessions;
+        QVector<Session> sessions;
 };
 
 #endif // LOGS_H
