@@ -17,10 +17,10 @@ class Logs {
         // member functions
         void uploadLogsToComputer();
         QString logsToString();
-        QVector<Session> parseLogs();
+        void parseLogs();
 
     private:
-        QVector<Session> sessions;
+        QVector<Session> sessions{};
 };
 
 #endif // LOGS_H

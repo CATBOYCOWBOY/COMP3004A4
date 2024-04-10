@@ -5,9 +5,13 @@ Logs::Logs() {
     parseLogs();
 }
 
-Logs::~Logs() {}
+Logs::~Logs() {
+//    for (int i = 0; i < this->sessions.size(); i++) {
+//        delete this->sessions[i];
+//    }
+}
 
-QVector<Session> Logs::parseLogs() {
+void Logs::parseLogs() {
     // parse file
     QList<QStringList> dataList;
     QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
@@ -20,16 +24,19 @@ QVector<Session> Logs::parseLogs() {
         }
     }
 
-    // create and store session objects
-    for (int i = 0; i < dataList.size(); i++) {
-        Session *s = new Session(i+1, dataList[i][0], dataList[i][1], dataList[i][2].toInt(), dataList[i][3].toInt());
-        this->sessions.append(&s);
-    }
+//    // create and store session objects
+//    QVector<Session> *sessionsTemp = new QVector<Session>;
+//    for (int i = 0; i < dataList.size(); i++) {
+//        Session *s = new Session(i+1, dataList[i][0], dataList[i][1], dataList[i][2].toInt(), dataList[i][3].toInt());
+//        sessionsTemp.push_back(s);
+//    }
 
-    // test print
-    for (int i = 0; i < this->sessions.size(); i++) {
-        qDebug() << this->sessions[i].sessionToString();
-    }
+//    // test print
+//    for (int i = 0; i < sessionsTemp.size(); i++) {
+//        qDebug() << sessionsTemp[i]->sessionToString();
+//    }
+
+//    return sessionsTemp;
  }
 
 void Logs::uploadLogsToComputer() {

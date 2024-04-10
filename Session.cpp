@@ -32,6 +32,6 @@ QString Session::getEndTime() { return this->endTime; }
 
 int Session::getStartBaseline() { return this->startBaseline; }
 
-int Session::getEndBaseline() { reutrn this->endBaseline; }
+int Session::getEndBaseline() { return this->endBaseline; }
 
 

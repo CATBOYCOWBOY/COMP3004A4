@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "constants.h"
 #include "QDebug"
-#include "Logs.h"
+#include "Session.h"
 
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
@@ -11,9 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
   uiSetup();
 
-  Logs newlogs = new Logs();
-  newlogs->parseLogs();
-
   computerView = new ComputerView(this);
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
@@ -21,6 +18,35 @@ MainWindow::MainWindow(QWidget *parent)
   connectNeuresetController(treatmentController);
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
+
+  // parse file
+  QList<QStringList> dataList;
+  QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
+  if (CSVFile.open(QIODevice::ReadWrite)) {
+      qDebug() << "opened file";
+      QTextStream Stream(&CSVFile);
+      QString b = Stream.atEnd() ? "true" : "false";
+      qDebug() << b;
+      while (Stream.atEnd() == false) {
+          qDebug() << "in while loop to read";
+          QString line = stream.readLine();
+          QStringList data = line.split(",");
+          dataList.append(data);
+      }
+  }
+  qDebug() << "length of datalist: ";
+  qDebug() << QString::number(dataList.size()) << Qt::endl;
+
+  for (int i = 0; i < dataList.size(); i++) {
+      QString str;
+      for (int j = 0; j < 4; j++) {
+          str += dataList[i][j];
+      }
+      qDebug() << QString::number(i);
+      qDebug() << str << Qt::endl;
+  }
+
+  qDebug() << "womp womp!!!!" << Qt::endl;
 }
 
 MainWindow::~MainWindow()
