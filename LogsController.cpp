@@ -1,17 +1,16 @@
-#include "Logs.h"
+#include "LogsController.h"
+#include <QDebug>
 
-Logs::Logs() {
-    // look in logs.txt and parse data
-    parseLogs();
+LogsController::LogsController(QObject *parent = nullptr, Ui::MainWindow *mw = nullptr, int i) {
+    this->parent = parent;
+    mw = ui;
 }
 
-Logs::~Logs() {
-//    for (int i = 0; i < this->sessions.size(); i++) {
-//        delete this->sessions[i];
-//    }
-}
+LogsController::LogsController() {}
 
-void Logs::parseLogs() {
+LogsController::~LogsController() {}
+
+void LogsController::parseLogsController() {
     // parse file
     QList<QStringList> dataList;
     QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
@@ -39,10 +38,10 @@ void Logs::parseLogs() {
 //    return sessionsTemp;
  }
 
-void Logs::uploadLogsToComputer() {
+void LogsController::uploadLogsControllerToComputer() {
 
 }
 
-QString Logs::logsToString() {
+QString LogsController::LogsControllerToString() {
     return QString("womp womp");
 }

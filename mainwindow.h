@@ -54,6 +54,7 @@ private:
 
   int viewSelectedTabIndex;
 
+  LogsController *logsController;
   TreatmentController *treatmentController;
   MenuController *menuController;
 

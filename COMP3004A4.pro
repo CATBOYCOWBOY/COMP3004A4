@@ -37,7 +37,9 @@ HEADERS += \
   timeupdater.h \
   menucontroller.h \
   neuresetController.h \
-  treatmentcontroller.h
+  treatmentcontroller.h \
+  data.csv \
+  logs.csv
 
 FORMS += \
   computerview.ui \

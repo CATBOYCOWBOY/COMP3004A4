@@ -2,6 +2,7 @@
 #define SESSION_H
 
 #include <QString>
+#include <QObject>
 
 class Session {
     public:
