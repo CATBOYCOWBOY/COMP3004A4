@@ -14,12 +14,12 @@ class LedLight: public QWidget {
     void setOnPattern(Qt::BrushStyle onPattern);
     void setOffPattern(Qt::BrushStyle offPattern);
     void setLedSize(int size);
-
+    void toggle();
 
   public slots:
-    void toggle();
     void startFlashing();
     void stopFlashing();
+    void turnOn();
     void shutOff();
 
   protected:

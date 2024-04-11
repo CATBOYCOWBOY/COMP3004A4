@@ -36,6 +36,12 @@ void LedLight::toggle()
 
 void LedLight::shutOff() {
     lit = false;
+    stopFlashing();
+    update();
+}
+
+void LedLight::turnOn() {
+    lit = true;
     update();
 }
 
@@ -79,4 +85,5 @@ void LedLight::stopFlashing()
 {
     flashTimer->stop();
     setState(false);
+    update();
 }

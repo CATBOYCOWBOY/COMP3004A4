@@ -27,6 +27,7 @@ signals:
   void treatmentPaused();
   void treatmentUnpaused();
   void treatmentStopped();
+  void treatmentDone();
   void batteryLow();
   void sensorDisconnected();
   void batteryReset();

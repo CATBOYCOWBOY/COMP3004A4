@@ -37,10 +37,26 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   connect(ui->connectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableReconnect);
 
   //connect with LED behavior
-  ledLights->at(0)->toggle(); //assume the eeg is connected at the beginning the device is on, blue light is on
-  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(0), &LedLight::toggle); // if disconnect, turn off blue light
-  connect(this, &TreatmentController::connectionReset, ledLights->at(0), &LedLight::toggle); // if reconnect, turn on blue light
-  connect(this, &TreatmentController::treatmentStarted, ledLights->at(1), &LedLight::toggle); // if treatment starts, turn on green light
+  // connect and disconnect
+  ledLights->at(0)->turnOn(); //assume the eeg is connected at the beginning the device is on, blue light is on
+  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(0), &LedLight::shutOff);
+  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(2), &LedLight::turnOn);
+  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(2), &LedLight::startFlashing);
+  connect(this, &TreatmentController::connectionReset, ledLights->at(0), &LedLight::turnOn);
+  connect(this, &TreatmentController::connectionReset, ledLights->at(2), &LedLight::shutOff);
+
+  // treatment
+  connect(this, &TreatmentController::treatmentStarted, ledLights->at(1), &LedLight::turnOn); // if treatment starts, turn on green light
+  connect(this, &TreatmentController::treatmentStarted, ledLights->at(1), &LedLight::startFlashing); // green light flashing
+  connect(this, &TreatmentController::treatmentPaused, ledLights->at(1), &LedLight::shutOff);
+  connect(this, &TreatmentController::treatmentUnpaused, ledLights->at(1), &LedLight::turnOn);
+  connect(this, &TreatmentController::treatmentUnpaused, ledLights->at(1), &LedLight::startFlashing);
+  connect(this, &TreatmentController::treatmentStopped, ledLights->at(1), &LedLight::shutOff);
+  connect(this, &TreatmentController::treatmentDone, ledLights->at(1), &LedLight::shutOff);
+
+  // battery
+  connect(this, &TreatmentController::batteryLow, ledLights->at(2), &LedLight::turnOn);
+  connect(this, &TreatmentController::batteryReset, ledLights->at(2), &LedLight::shutOff);
 
   for (int i = 0; i < NUM_SAMPLES; i++)
   {
@@ -207,6 +223,7 @@ void TreatmentController::onSensorFinished(double i)
                         timeController->getTime() +
                         QString::fromStdString(",") +
                         QString::number(endingSumBaseline / NUM_SITES);
+    emit treatmentDone();
     emit logTreatment(logString);
   }
   controllerMutex->unlock();
