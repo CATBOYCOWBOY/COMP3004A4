@@ -2,7 +2,7 @@ COMP3004 Winter 2024 Final Project
 
 Team 26
   Tom Fan - 101 265 197
-  Jenny Hu
+  Jiayu Hu - 101 253 627
   Kristian Chaves
   Claire Wang
 
