@@ -8,12 +8,16 @@
 #include "neuresetController.h"
 #include "ui_mainwindow.h"
 #include "eegsensor.h"
+#include "timecontroller.h"
 
 class TreatmentController: public NeuresetController
 {
   Q_OBJECT
 public:
-  TreatmentController(QObject *parent = nullptr, Ui::MainWindow *mw = nullptr, int i = -1);
+  TreatmentController(QObject *parent = nullptr,
+                      Ui::MainWindow *mw = nullptr,
+                      TimeController *tc = nullptr,
+                      int i = -1);
   ~TreatmentController();
 
 signals:
@@ -25,6 +29,7 @@ signals:
   void sensorDisconnected();
   void batteryReset();
   void connectionReset();
+  void logTreatment(const QString&);
   void shutOff();
 
 public slots:
@@ -42,10 +47,12 @@ public slots:
   void onWaveFormUpdate(int);
   void onSensorFinished(double);
   void onSensorStarted(double);
+  void onCycleComplete();
 
   void onFiveMinutesDisconnected();
 private:
   Ui::MainWindow *ui;
+  TimeController *timeController;
   QMutex* controllerMutex;
   int batteryTreatmentsLeft;
   bool isBatteryLow = false;
@@ -57,11 +64,10 @@ private:
 
   int selectedSensorId;
 
-  QString prevTreatmentString;
-
   EEGSensor* sensors [NUM_SITES];
   QThread* threads[NUM_SITES];
 
+  int numCyclesRemaining; // number of treatment cycles and final analysis remaning, used for calculating progress
   int unfinishedSensors;
   double startingSumBaseline;
   double endingSumBaseline;
@@ -69,9 +75,13 @@ private:
   QVector<double> defaultYSeries;
   QVector<double> xSeries;
 
+  QString treatmentStartTime;
+
   void initializeSensorsAndThreads();
   void connectSensorThreads(EEGSensor*, QThread*);
   void updateTreatmentString();
+
+  int treatmentPercentage();
 };
 
 #endif // TREATMENTCONTROLLER_H

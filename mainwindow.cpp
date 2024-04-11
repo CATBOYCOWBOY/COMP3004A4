@@ -13,21 +13,27 @@ MainWindow::MainWindow(QWidget *parent)
   computerView = new ComputerView(this);
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
+
   logsController = new Logs(this, ui, LOGS_TAB_INDEX);
   connectNeuresetController(logsController);
-  treatmentController = new TreatmentController(this, ui, TREATMENT_TAB_INDEX);
+    
+  treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX);
   connectNeuresetController(treatmentController);
+    
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
+
+  // connect treatment coontroller log treatment to logs controller like this
+  connect(treatmentController, &TreatmentController::logTreatment, this, &MainWindow::testTreatmentLog, Qt::DirectConnection);
 }
 
 MainWindow::~MainWindow()
 {
-  delete ui;
   delete timeController;
   delete treatmentController;
   delete logsController;
   delete computerView;
+  delete ui;
 }
 
 void MainWindow::uiSetup()
@@ -97,6 +103,11 @@ void MainWindow::on_primaryTabs_currentChanged(int index)
 
 void MainWindow::on_powerButton_clicked()
 {
-  qDebug() << "shutting down...";
+  qDebug() << "NEURESET SHUTTING DOWN...";
   QCoreApplication::exit();
+}
+
+void MainWindow::testTreatmentLog(const QString &string)
+{
+  qDebug() << "logging " << string;
 }
