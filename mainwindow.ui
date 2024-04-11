@@ -17,14 +17,14 @@
    <widget class="QTabWidget" name="primaryTabs">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>10</y>
       <width>701</width>
       <height>471</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -97,6 +97,55 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
+     <widget class="QListView" name="sessionLogListView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>661</width>
+        <height>371</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="uploadLogsToComputerButton">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>400</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Upload logs to computer</string>
+      </property>
+     </widget>
+     <widget class="QScrollArea" name="logsScrollArea">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>661</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>659</width>
+         <height>369</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+     <zorder>logsScrollArea</zorder>
+     <zorder>sessionLogListView</zorder>
+     <zorder>uploadLogsToComputerButton</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -311,7 +360,7 @@
      <x>0</x>
      <y>0</y>
      <width>1014</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="neuresetMenu">
