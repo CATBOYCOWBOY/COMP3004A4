@@ -22,9 +22,11 @@ class LogsController : public NeuresetController {
         ~LogsController();
 
         // member functions
+        void addSession();
         void uploadLogsToComputer();
         QString logsToString();
         void parseLogs();
+        QVector<Session> *sessions;
 
     public slots:
         void onUpButtonPressed(int);
@@ -38,7 +40,6 @@ class LogsController : public NeuresetController {
 
     private:
         Ui::MainWindow *ui;
-        QVector<Session> sessions;
         int controllerId;
 };
 

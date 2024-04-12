@@ -24,9 +24,11 @@ void LogsController::parseLogs() {
     // parse file
     QList<QStringList> dataList;
 
-    QFile CSVFile("/home/student/COMP3004A4/logs.csv");
+    QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
     if (CSVFile.open(QIODevice::ReadWrite)) {
         QTextStream stream(&CSVFile);
+        // skip first line
+        stream.readLine();
         while (stream.atEnd() == false) {
             QString line = stream.readLine();
             QStringList data = line.split(",");
@@ -34,27 +36,19 @@ void LogsController::parseLogs() {
         }
     }
 
-    qDebug() << "dataList size: " << QString::number(dataList.length()) << endl;
+    qDebug() << "dataList size: " << QString::number(dataList.length()) << Qt::endl;
 
     // try printing it in the list view
     for (int i = 0; i < dataList.size(); i++) {
-        qDebug() << "reached ui insertion loop" << endl;
+        qDebug() << "reached ui insertion loop" << Qt::endl;
         ui->sessionsList->insertItem(i, dataList[i][0]);
     }
 
-//    // create and store session objects
-//    QVector<Session> *sessionsTemp = new QVector<Session>;
-//    for (int i = 0; i < dataList.size(); i++) {
-//        Session *s = new Session(i+1, dataList[i][0], dataList[i][1], dataList[i][2].toInt(), dataList[i][3].toInt());
-//        sessionsTemp.push_back(s);
-//    }
-
-//    // test print
-//    for (int i = 0; i < sessionsTemp.size(); i++) {
-//        qDebug() << sessionsTemp[i]->sessionToString();
-//    }
-
-//    return sessionsTemp;
+    // create and store session objects
+    for (int i = 0; i < dataList.size(); i++) {
+        Session *s = new Session(i+1, dataList[i][0], dataList[i][1], dataList[i][2].toInt(), dataList[i][3].toInt());
+        this->sessions.push_back(s);
+    }
 }
 
 void LogsController::uploadLogsToComputer() {
