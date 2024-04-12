@@ -14,7 +14,6 @@ SOURCES += \
   eegsensor.cpp \
   main.cpp \
   mainwindow.cpp \
-  Session.cpp \
   qcustomplot.cpp \
   timecontroller.cpp \
   timeupdater.cpp \
@@ -29,7 +28,6 @@ HEADERS += \
   eegsensor.h \
   mainwindow.h \
   constants.h \
-  Session.h \
   qcustomplot.h \
   timecontroller.h \
   timeupdater.h \

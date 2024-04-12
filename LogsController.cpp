@@ -13,9 +13,6 @@ LogsController::LogsController(QObject *parent, Ui::MainWindow *mw, int i) :
     ui->primaryTabs->setTabText(LOGS_TAB_INDEX, LOGS_TAB_TEXT);
 
     parseLogs();
-//    QListWidget *sessionsListWidget = ui->sessionsList;
-    // specify child widget for scroll area
-    // ui->logsScrollArea->setWidget(sessionsList);
 }
 
 LogsController::~LogsController() {}
@@ -40,14 +37,16 @@ void LogsController::parseLogs() {
 
     // try printing it in the list view
     for (int i = 0; i < dataList.size(); i++) {
-        qDebug() << "reached ui insertion loop" << Qt::endl;
-        ui->sessionsList->insertItem(i, dataList[i][0]);
-    }
-
-    // create and store session objects
-    for (int i = 0; i < dataList.size(); i++) {
-        Session *s = new Session(i+1, dataList[i][0], dataList[i][1], dataList[i][2].toInt(), dataList[i][3].toInt());
-        this->sessions.push_back(s);
+        QString formattedString = QString(
+            "-----------------SESSION ID: %1-----------------\n->Start Time: %2\n->End Time: %3\n->Start Baseline: %4\n->End Baseline: %5\n-----------------------------------------------------\n"
+        ).arg(
+            QString::number(i+1),
+            dataList[i][0],
+            dataList[i][1],
+            dataList[i][2],
+            dataList[i][3]
+        );
+        ui->sessionsList->insertItem(i, formattedString);
     }
 }
 
