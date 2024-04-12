@@ -22,11 +22,13 @@ class LogsController : public NeuresetController {
         ~LogsController();
 
         // member functions
+        void parseLogs();
+        void updateUi();
         void addSession();
         void uploadLogsToComputer();
-        QString logsToString();
-        void parseLogs();
-        QVector<Session> *sessions;
+        QString logsToString(int sessionId, QString startTime, QString endTime, QString startBaseline, QString endBaseline);
+        void writeLogsToDisk();
+
 
     public slots:
         void onUpButtonPressed(int);
@@ -39,6 +41,7 @@ class LogsController : public NeuresetController {
 //        void uploadLogsToComputerButtonClicked();
 
     private:
+        QList<QStringList> sessionsList;
         Ui::MainWindow *ui;
         int controllerId;
 };

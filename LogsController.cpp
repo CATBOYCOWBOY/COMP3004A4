@@ -13,14 +13,13 @@ LogsController::LogsController(QObject *parent, Ui::MainWindow *mw, int i) :
     ui->primaryTabs->setTabText(LOGS_TAB_INDEX, LOGS_TAB_TEXT);
 
     parseLogs();
+    updateUi();
 }
 
 LogsController::~LogsController() {}
 
 void LogsController::parseLogs() {
-    // parse file
-    QList<QStringList> dataList;
-
+    // parse file for log history
     QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
     if (CSVFile.open(QIODevice::ReadWrite)) {
         QTextStream stream(&CSVFile);
@@ -29,33 +28,41 @@ void LogsController::parseLogs() {
         while (stream.atEnd() == false) {
             QString line = stream.readLine();
             QStringList data = line.split(",");
-            dataList.append(data);
+            this->sessionsList.append(data);
         }
     }
+}
 
-    qDebug() << "dataList size: " << QString::number(dataList.length()) << Qt::endl;
-
-    // try printing it in the list view
-    for (int i = 0; i < dataList.size(); i++) {
-        QString formattedString = QString(
-            "-----------------SESSION ID: %1-----------------\n->Start Time: %2\n->End Time: %3\n->Start Baseline: %4\n->End Baseline: %5\n-----------------------------------------------------\n"
-        ).arg(
-            QString::number(i+1),
-            dataList[i][0],
-            dataList[i][1],
-            dataList[i][2],
-            dataList[i][3]
+void LogsController::updateUi() {
+    for (int i = 0; i < this->sessionsList.size(); i++) {
+        ui->sessionsList->insertItem(
+            i, 
+            logsToString(
+                i+1,
+                sessionsList[i][0], 
+                sessionsList[i][1],
+                sessionsList[i][2],
+                sessionsList[i][3]
+            )
         );
-        ui->sessionsList->insertItem(i, formattedString);
     }
+}
+
+QString LogsController::logsToString(int sessionId, QString startTime, QString endTime, QString startBaseline, QString endBaseline) {
+    QString formattedString = QString(
+        "-----------------SESSION ID: %1-----------------\n->Start Time: %2\n->End Time: %3\n->Start Baseline: %4\n->End Baseline: %5\n-----------------------------------------------------\n"
+    ).arg(
+        QString::number(sessionId),
+        startTime,
+        endTime,
+        startBaseline,
+        endBaseline
+    );
+    return formattedString;
 }
 
 void LogsController::uploadLogsToComputer() {
 
-}
-
-QString LogsController::logsToString() {
-    return QString("womp womp");
 }
 
 // slots
