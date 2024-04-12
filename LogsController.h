@@ -16,13 +16,11 @@ class LogsController : public NeuresetController {
     Q_OBJECT
     public:
         // constructor
-
         LogsController(QObject *parent = nullptr, Ui::MainWindow *mw = nullptr, int i = -1);
 
         // destructor
         ~LogsController();
 
-    protected:
         // member functions
         void uploadLogsToComputer();
         QString logsToString();

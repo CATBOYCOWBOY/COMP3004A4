@@ -110,41 +110,16 @@
        <string>Upload logs to computer</string>
       </property>
      </widget>
-     <widget class="QScrollArea" name="logsScrollArea">
+     <widget class="QListWidget" name="sessionsList">
       <property name="geometry">
        <rect>
         <x>20</x>
         <y>20</y>
-        <width>661</width>
-        <height>371</height>
+        <width>401</width>
+        <height>61</height>
        </rect>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>659</width>
-         <height>369</height>
-        </rect>
-       </property>
-       <widget class="QListWidget" name="sessionsList">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>661</width>
-          <height>371</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
      </widget>
-     <zorder>logsScrollArea</zorder>
-     <zorder>uploadLogsToComputerButton</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
