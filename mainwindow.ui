@@ -97,16 +97,6 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QListView" name="sessionLogListView">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>661</width>
-        <height>371</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QPushButton" name="uploadLogsToComputerButton">
       <property name="geometry">
        <rect>
@@ -141,10 +131,19 @@
          <height>369</height>
         </rect>
        </property>
+       <widget class="QListWidget" name="sessionsList">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>661</width>
+          <height>371</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
      </widget>
      <zorder>logsScrollArea</zorder>
-     <zorder>sessionLogListView</zorder>
      <zorder>uploadLogsToComputerButton</zorder>
     </widget>
     <widget class="QWidget" name="tab_2">

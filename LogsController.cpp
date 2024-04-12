@@ -1,16 +1,18 @@
 #include "LogsController.h"
 #include <QDebug>
 
-LogsController::LogsController(QObject *parent = nullptr, Ui::MainWindow *mw = nullptr, int i) {
-    this->parent = parent;
-    mw = ui;
+LogsController::LogsController(QObject *parent, Ui::MainWindow *mw, int i) :
+    NeuresetController{parent},
+    ui(mw),
+    controllerId(i) 
+{
+    ui->primaryTabs->setTabText(LOGS_TAB_INDEX, LOGS_TAB_TEXT);
+    ui->logsScrollArea->setWidget(ui->sessionsList);
 }
-
-LogsController::LogsController() {}
 
 LogsController::~LogsController() {}
 
-void LogsController::parseLogsController() {
+void LogsController::parseLogs() {
     // parse file
     QList<QStringList> dataList;
     QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
@@ -22,6 +24,9 @@ void LogsController::parseLogsController() {
             dataList.append(data);
         }
     }
+
+    // try printing it in the list view
+
 
 //    // create and store session objects
 //    QVector<Session> *sessionsTemp = new QVector<Session>;
@@ -36,12 +41,45 @@ void LogsController::parseLogsController() {
 //    }
 
 //    return sessionsTemp;
- }
+}
 
-void LogsController::uploadLogsControllerToComputer() {
+void LogsController::uploadLogsToComputer() {
 
 }
 
-QString LogsController::LogsControllerToString() {
+QString LogsController::logsToString() {
     return QString("womp womp");
 }
+
+// signals
+void LogsController::onUpButtonPressed(int i) {
+    if (controllerId != i) return;
+    qDebug() << "up was pressed" << Qt::endl;
+}
+
+void LogsController::onDownButonPressed(int i) {
+    if (controllerId != i) return;
+    qDebug() << "down was pressed" << Qt::endl;
+}
+
+void LogsController::onPlayButtonPressed(int i) {
+    if (controllerId != i) return;
+    qDebug() << "play was pressed" << Qt::endl;
+}
+
+void LogsController::onStopButtonPressed(int i) {
+    if (controllerId != i) return;
+    qDebug() << "stop was pressed" << Qt::endl;
+}
+
+void LogsController::onPauseButonPressed(int i) {
+    if (controllerId != i) return;
+    qDebug() << "pause was pressed" << Qt::endl;
+}
+
+// slots
+//void LogsController::uploadLogsToComputerButtonClicked() {
+//    uploadLogsToComputer();
+//}
+
+

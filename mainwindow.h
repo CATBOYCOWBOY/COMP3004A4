@@ -7,6 +7,7 @@
 #include <QMutex>
 #include "computerview.h"
 #include "timecontroller.h"
+#include "LogsController.h"
 #include "treatmentcontroller.h"
 #include "menucontroller.h"
 
@@ -45,6 +46,8 @@ private slots:
   void on_powerButton_clicked();
 
   void testTreatmentLog(const QString&);
+
+  void testSessionLogs(const QString&);
 
 private:
   Ui::MainWindow *ui;

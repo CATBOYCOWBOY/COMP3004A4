@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
 
-  logsController = new Logs(this, ui, LOGS_TAB_INDEX);
+  logsController = new LogsController(this, ui, LOGS_TAB_INDEX);
   connectNeuresetController(logsController);
     
   treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX);
@@ -110,4 +110,9 @@ void MainWindow::on_powerButton_clicked()
 void MainWindow::testTreatmentLog(const QString &string)
 {
   qDebug() << "logging " << string;
+}
+
+void MainWindow::testSessionLogs(const QString &str)
+{
+  qDebug() << "SESSION LOGS: " << str << Qt::endl;
 }

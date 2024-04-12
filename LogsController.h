@@ -16,8 +16,8 @@ class LogsController : public NeuresetController {
     Q_OBJECT
     public:
         // constructor
+
         LogsController(QObject *parent = nullptr, Ui::MainWindow *mw = nullptr, int i = -1);
-        LogsController();
 
         // destructor
         ~LogsController();
@@ -31,13 +31,17 @@ class LogsController : public NeuresetController {
     public slots:
         void onUpButtonPressed(int);
         void onDownButonPressed(int);
+        void onPlayButtonPressed(int);
+        void onPauseButonPressed(int);
+        void onStopButtonPressed(int);
 
-    signals:
-        void uploadLogsToComputerButtonClicked();
+//    signals:
+//        void uploadLogsToComputerButtonClicked();
 
     private:
         Ui::MainWindow *ui;
         QVector<Session> sessions;
+        int controllerId;
 };
 
 #endif // LOGS_H
