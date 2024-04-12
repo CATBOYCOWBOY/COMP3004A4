@@ -12,12 +12,11 @@ Files included with submission:
       - computerview.h
       - constants.h
       - eegsensor.h
-      - Logs.h
+      - LogsController.h
       - mainwindow.h
       - menucontroller.h
       - neuresetController.h
       - qcustomplot.h
-      - Session.h
       - timecontroller.h
       - timeupdater.h
       - treatmentcontroller.h
@@ -25,13 +24,12 @@ Files included with submission:
     c++ files:
       - computerview.cpp
       - eegsensor.cpp
-      - Logs.cpp
+      - LogsController.cpp
       - main.cpp
       - mainwindow.cpp
       - menucontroller.cpp
       - neuresetcontroller.cpp
       - qcustomplot.cpp
-      - Session.cpp
       - timecontroller.cpp
       - timeupdater.cpp
       - treatmentcontroller.cpp
