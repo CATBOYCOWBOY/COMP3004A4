@@ -9,12 +9,11 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-  Logs.cpp \
+  LogsController.cpp \
   computerview.cpp \
   eegsensor.cpp \
   main.cpp \
   mainwindow.cpp \
-  Session.cpp \
   qcustomplot.cpp \
   timecontroller.cpp \
   timeupdater.cpp \
@@ -23,19 +22,20 @@ SOURCES += \
   treatmentcontroller.cpp
 
 HEADERS += \
-  Logs.h \
+  LogsController.h \
   computerview.h \
   constants.h \
   eegsensor.h \
   mainwindow.h \
   constants.h \
-  Session.h \
   qcustomplot.h \
   timecontroller.h \
   timeupdater.h \
   menucontroller.h \
   neuresetController.h \
-  treatmentcontroller.h
+  treatmentcontroller.h \
+  data.csv \
+  logs.csv
 
 FORMS += \
   computerview.ui \
@@ -49,5 +49,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
   resources.qrc
 
-DISTFILES += \
-    logs.txt
+DISTFILES +=
