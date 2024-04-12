@@ -13,7 +13,10 @@ MainWindow::MainWindow(QWidget *parent)
   computerView = new ComputerView(this);
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
+  connectNeuresetController(timeController);
   treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX);
+  connectNeuresetController(timeController);
+  treatmentController = new TreatmentController(this, ui, TREATMENT_TAB_INDEX);
   connectNeuresetController(treatmentController);
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
@@ -48,9 +51,9 @@ void MainWindow::uiSetup()
 void MainWindow::connectNeuresetController(NeuresetController* controller)
 {
   connect(this, &MainWindow::upButtonClicked, controller, &NeuresetController::onUpButtonPressed);
-  connect(this, &MainWindow::downButtonClicked, controller, &NeuresetController::onDownButonPressed);
+  connect(this, &MainWindow::downButtonClicked, controller, &NeuresetController::onDownButtonPressed);
   connect(this, &MainWindow::playButtonClicked, controller, &NeuresetController::onPlayButtonPressed);
-  connect(this, &MainWindow::pauseButtonClicked, controller, &NeuresetController::onPauseButonPressed);
+  connect(this, &MainWindow::pauseButtonClicked, controller, &NeuresetController::onPauseButtonPressed);
   connect(this, &MainWindow::stopButtonClicked, controller, &NeuresetController::onStopButtonPressed);
 }
 
@@ -66,6 +69,8 @@ void MainWindow::on_menuButton_clicked()
 
 void MainWindow::on_upButton_clicked()
 {
+  qDebug() << "up button";
+  qDebug() << viewSelectedTabIndex;
   emit upButtonClicked(viewSelectedTabIndex);
 }
 

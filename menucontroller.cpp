@@ -27,7 +27,7 @@ void MenuController::onUpButtonPressed(int i)
   labelOptions[selectedOptionIndex]->setStyleSheet(QString::fromStdString(HIGHLIGHTED_STYLE));
 }
 
-void MenuController::onDownButonPressed(int i)
+void MenuController::onDownButtonPressed(int i)
 {
   if (controllerId != i)
   {
@@ -47,7 +47,7 @@ void MenuController::onPlayButtonPressed(int i)
   ui->primaryTabs->setCurrentIndex(selectedOptionIndex);
 }
 
-void MenuController::onPauseButonPressed(int)
+void MenuController::onPauseButtonPressed(int)
 {
 
 }
