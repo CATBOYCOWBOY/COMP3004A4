@@ -23,7 +23,8 @@ LogsController::~LogsController() {}
 void LogsController::parseLogs() {
     // parse file
     QList<QStringList> dataList;
-    QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
+
+    QFile CSVFile("/home/student/COMP3004A4/logs.csv");
     if (CSVFile.open(QIODevice::ReadWrite)) {
         QTextStream stream(&CSVFile);
         while (stream.atEnd() == false) {
