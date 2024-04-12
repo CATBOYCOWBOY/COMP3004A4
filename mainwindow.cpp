@@ -15,8 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
   connectNeuresetController(timeController);
   treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX);
-  connectNeuresetController(timeController);
-  treatmentController = new TreatmentController(this, ui, TREATMENT_TAB_INDEX);
   connectNeuresetController(treatmentController);
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
