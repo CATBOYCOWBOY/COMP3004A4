@@ -14,6 +14,7 @@ LogsController::LogsController(QObject *parent, Ui::MainWindow *mw, int i) :
 
     parseLogs();
     updateUi();
+    writeLogsToDisk();
 }
 
 LogsController::~LogsController() {}
@@ -31,6 +32,11 @@ void LogsController::parseLogs() {
             this->sessionsList.append(data);
         }
     }
+    CSVFile.close();
+}
+
+void addSession() {
+
 }
 
 void LogsController::updateUi() {
@@ -59,6 +65,19 @@ QString LogsController::logsToString(int sessionId, QString startTime, QString e
         endBaseline
     );
     return formattedString;
+}
+
+void LogsController::writeLogsToDisk() {
+    // write to logs.csv and save
+    QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
+    if (CSVFile.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        QTextStream stream(&CSVFile);
+        for (int i = 0; i < this->sessionsList.size(); i++) {
+            stream << this->sessionsList[i][0] << "," << this->sessionsList[i][1] << "," << this->sessionsList[i][2] << "," << this->sessionsList[i][3] << Qt::endl;
+        }
+    }
+    CSVFile.close();
+
 }
 
 void LogsController::uploadLogsToComputer() {
