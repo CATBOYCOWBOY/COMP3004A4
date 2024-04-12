@@ -68,6 +68,10 @@ QString LogsController::logsToString(int sessionId, QString startTime, QString e
 }
 
 void LogsController::writeLogsToDisk() {
+    // add session to datalist to test
+    QString line = "womp,womp,womp,womp";
+    QStringList data = line.split(",");
+    this->sessionsList.append(data);
     // write to logs.csv and save
     QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
     if (CSVFile.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
