@@ -17,7 +17,7 @@
    <widget class="QTabWidget" name="primaryTabs">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>50</x>
       <y>10</y>
       <width>701</width>
       <height>471</height>
@@ -97,6 +97,29 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
+     <widget class="QPushButton" name="uploadLogsToComputerButton">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>400</y>
+        <width>221</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Upload logs to computer</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="sessionsList">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>661</width>
+        <height>371</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
