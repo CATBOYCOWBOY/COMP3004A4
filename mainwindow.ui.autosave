@@ -17,14 +17,14 @@
    <widget class="QTabWidget" name="primaryTabs">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>10</x>
       <y>10</y>
       <width>701</width>
       <height>471</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -34,7 +34,7 @@
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>380</y>
+        <y>170</y>
         <width>281</width>
         <height>31</height>
        </rect>
@@ -47,7 +47,7 @@
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>340</y>
+        <y>140</y>
         <width>151</width>
         <height>16</height>
        </rect>
@@ -69,62 +69,29 @@
        <string/>
       </property>
      </widget>
-     <widget class="QCustomPlot" name="waveDisplay" native="true">
-      <property name="geometry">
-       <rect>
-        <x>90</x>
-        <y>110</y>
-        <width>481</width>
-        <height>201</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="waveLabel">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>60</y>
-        <width>231</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_3">
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QPushButton" name="uploadLogsToComputerButton">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>400</y>
-        <width>221</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Upload logs to computer</string>
-      </property>
-     </widget>
-     <widget class="QListWidget" name="sessionsList">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>661</width>
-        <height>371</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
+     <widget class="QLabel" name="dateTimeDisplay">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>50</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
      <widget class="QLCDNumber" name="yearDisplay">
       <property name="geometry">
        <rect>
@@ -138,10 +105,7 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="lineWidth">
-       <number>1</number>
+       <enum>QFrame::Raised</enum>
       </property>
      </widget>
      <widget class="QLCDNumber" name="monthDisplay">
@@ -152,9 +116,6 @@
         <width>150</width>
         <height>120</height>
        </rect>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
       </property>
      </widget>
      <widget class="QLCDNumber" name="dayDisplay">
@@ -171,9 +132,6 @@
         <pointsize>12</pointsize>
        </font>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
      </widget>
      <widget class="QLCDNumber" name="hourDisplay">
       <property name="geometry">
@@ -184,9 +142,6 @@
         <height>120</height>
        </rect>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
      </widget>
      <widget class="QLCDNumber" name="minuteDisplay">
       <property name="geometry">
@@ -196,9 +151,6 @@
         <width>150</width>
         <height>120</height>
        </rect>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
       </property>
       <property name="smallDecimalPoint">
        <bool>false</bool>
@@ -372,30 +324,6 @@
       <normaloff>:/new/prefix1/assets/menu.png</normaloff>:/new/prefix1/assets/menu.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="powerButton">
-    <property name="geometry">
-     <rect>
-      <x>899</x>
-      <y>10</y>
-      <width>101</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Power Button</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>890</x>
-      <y>40</y>
-      <width>111</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="ledLayout"/>
-   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
@@ -415,15 +343,15 @@
      <property name="title">
       <string>Battery drain</string>
      </property>
-     <addaction name="batteryLowAction"/>
-     <addaction name="batteryResetAction"/>
+     <addaction name="actionSet_low"/>
+     <addaction name="actionReset"/>
     </widget>
     <widget class="QMenu" name="menuEEG_terminals">
      <property name="title">
       <string>EEG terminals</string>
      </property>
-     <addaction name="connectTerminalAction"/>
-     <addaction name="disconnectTerminalAction"/>
+     <addaction name="actionconnect"/>
+     <addaction name="actiondisconnect"/>
     </widget>
     <addaction name="menuEEG_terminals"/>
     <addaction name="batteryOptions"/>
@@ -431,12 +359,12 @@
    </widget>
    <addaction name="neuresetMenu"/>
   </widget>
-  <action name="batteryLowAction">
+  <action name="actionSet_low">
    <property name="text">
     <string>Set low</string>
    </property>
   </action>
-  <action name="batteryResetAction">
+  <action name="actionReset">
    <property name="text">
     <string>Reset</string>
    </property>
@@ -451,30 +379,17 @@
     <string>Computer view</string>
    </property>
   </action>
-  <action name="connectTerminalAction">
+  <action name="actionconnect">
    <property name="text">
     <string>connect</string>
    </property>
   </action>
-  <action name="disconnectTerminalAction">
+  <action name="actiondisconnect">
    <property name="text">
     <string>disconnect</string>
    </property>
   </action>
-  <action name="setWavesAction">
-   <property name="text">
-    <string>Set Wave Values</string>
-   </property>
-  </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QCustomPlot</class>
-   <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="resources.qrc"/>
  </resources>

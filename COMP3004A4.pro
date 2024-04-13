@@ -10,13 +10,11 @@ CONFIG += c++17
 
 SOURCES += \
   CustomWidgets/ledlight.cpp \
-  Logs.cpp \
+  LogsController.cpp \
   computerview.cpp \
   eegsensor.cpp \
   main.cpp \
   mainwindow.cpp \
-  SensorPool.cpp \
-  Session.cpp \
   qcustomplot.cpp \
   timecontroller.cpp \
   timeupdater.cpp \
@@ -26,20 +24,20 @@ SOURCES += \
 
 HEADERS += \
   CustomWidgets/ledlight.h \
-  Logs.h \
+  LogsController.h \
   computerview.h \
   constants.h \
   eegsensor.h \
   mainwindow.h \
   constants.h \
-  SensorPool.h \
-  Session.h \
   qcustomplot.h \
   timecontroller.h \
   timeupdater.h \
   menucontroller.h \
   neuresetController.h \
-  treatmentcontroller.h
+  treatmentcontroller.h \
+  data.csv \
+  logs.csv
 
 FORMS += \
   computerview.ui \
@@ -53,5 +51,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
   resources.qrc
 
-DISTFILES += \
-    logs.txt
+DISTFILES +=

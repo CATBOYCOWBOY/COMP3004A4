@@ -1,4 +1,4 @@
-#ifndef TREATMENTCONTROLLER_H
+ #ifndef TREATMENTCONTROLLER_H
 #define TREATMENTCONTROLLER_H
 
 #include <QThread>
@@ -36,10 +36,11 @@ signals:
   void shutOff();
 
 public slots:
+
   void onUpButtonPressed(int);
-  void onDownButonPressed(int);
+  void onDownButtonPressed(int);
   void onPlayButtonPressed(int);
-  void onPauseButonPressed(int);
+  void onPauseButtonPressed(int);
   void onStopButtonPressed(int);
 
   void onBatteryLowCondition();

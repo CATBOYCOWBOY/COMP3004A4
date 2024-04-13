@@ -22,8 +22,13 @@ MainWindow::MainWindow(QWidget *parent)
   computerView = new ComputerView(this);
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
+
+  logsController = new LogsController(this, ui, LOGS_TAB_INDEX);
+  connectNeuresetController(logsController);
+    
   treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX, &ledLights);
   connectNeuresetController(treatmentController);
+    
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
 
@@ -35,6 +40,7 @@ MainWindow::~MainWindow()
 {
   delete timeController;
   delete treatmentController;
+  delete logsController;
   delete computerView;
   delete ledLightGreen;
   delete ledLightBlue;
@@ -63,9 +69,9 @@ void MainWindow::uiSetup()
 void MainWindow::connectNeuresetController(NeuresetController* controller)
 {
   connect(this, &MainWindow::upButtonClicked, controller, &NeuresetController::onUpButtonPressed);
-  connect(this, &MainWindow::downButtonClicked, controller, &NeuresetController::onDownButonPressed);
+  connect(this, &MainWindow::downButtonClicked, controller, &NeuresetController::onDownButtonPressed);
   connect(this, &MainWindow::playButtonClicked, controller, &NeuresetController::onPlayButtonPressed);
-  connect(this, &MainWindow::pauseButtonClicked, controller, &NeuresetController::onPauseButonPressed);
+  connect(this, &MainWindow::pauseButtonClicked, controller, &NeuresetController::onPauseButtonPressed);
   connect(this, &MainWindow::stopButtonClicked, controller, &NeuresetController::onStopButtonPressed);
 }
 
@@ -81,6 +87,8 @@ void MainWindow::on_menuButton_clicked()
 
 void MainWindow::on_upButton_clicked()
 {
+  qDebug() << "up button";
+  qDebug() << viewSelectedTabIndex;
   emit upButtonClicked(viewSelectedTabIndex);
 }
 
@@ -119,4 +127,9 @@ void MainWindow::on_powerButton_clicked()
 void MainWindow::testTreatmentLog(const QString &string)
 {
   qDebug() << "logging " << string;
+}
+
+void MainWindow::testSessionLogs(const QString &str)
+{
+  qDebug() << "SESSION LOGS: " << str << Qt::endl;
 }

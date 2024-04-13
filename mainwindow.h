@@ -7,6 +7,7 @@
 #include <QMutex>
 #include "computerview.h"
 #include "timecontroller.h"
+#include "LogsController.h"
 #include "treatmentcontroller.h"
 #include "menucontroller.h"
 
@@ -46,6 +47,8 @@ private slots:
 
   void testTreatmentLog(const QString&);
 
+  void testSessionLogs(const QString&);
+
 private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
@@ -63,6 +66,7 @@ private:
 
   int viewSelectedTabIndex;
 
+  LogsController *logsController;
 
   bool isBatterySuffient;
   bool areAllEEGNodesConnected;
