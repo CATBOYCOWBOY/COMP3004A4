@@ -94,7 +94,7 @@ void LogsController::onUpButtonPressed(int i) {
     qDebug() << "up was pressed" << Qt::endl;
 }
 
-void LogsController::onDownButonPressed(int i) {
+void LogsController::onDownButtonPressed(int i) {
     if (controllerId != i) { return; }
     qDebug() << "down was pressed" << Qt::endl;
 }
@@ -109,7 +109,7 @@ void LogsController::onStopButtonPressed(int i) {
     qDebug() << "stop was pressed" << Qt::endl;
 }
 
-void LogsController::onPauseButonPressed(int i) {
+void LogsController::onPauseButtonPressed(int i) {
     if (controllerId != i) { return; }
     qDebug() << "pause was pressed" << Qt::endl;
 }

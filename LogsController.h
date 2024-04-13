@@ -5,10 +5,8 @@
 #include <QVector>
 #include <QtCore>
 #include <QString>
-#include "Session.h"
 #include "constants.h"
 #include "neuresetController.h"
-#include "eegsensor.h"
 #include "ui_mainwindow.h"
 
 
@@ -32,9 +30,9 @@ class LogsController : public NeuresetController {
 
     public slots:
         void onUpButtonPressed(int);
-        void onDownButonPressed(int);
+        void onDownButtonPressed(int);
         void onPlayButtonPressed(int);
-        void onPauseButonPressed(int);
+        void onPauseButtonPressed(int);
         void onStopButtonPressed(int);
 
 //    signals:
