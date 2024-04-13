@@ -8,6 +8,15 @@ MainWindow::MainWindow(QWidget *parent)
   , ui(new Ui::MainWindow), viewSelectedTabIndex(MENU_TAB_INDEX)
 {
   ui->setupUi(this);
+  // setup led light
+  ledLightBlue = new LedLight(Qt::blue);
+  ledLightGreen = new LedLight(Qt::green);
+  ledLightRed = new LedLight(Qt::red);
+
+  ledLights.append(ledLightBlue);
+  ledLights.append(ledLightGreen);
+  ledLights.append(ledLightRed);
+
   uiSetup();
 
   computerView = new ComputerView(this);
@@ -17,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
   logsController = new LogsController(this, ui, LOGS_TAB_INDEX);
   connectNeuresetController(logsController);
     
-  treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX);
+  treatmentController = new TreatmentController(this, ui, timeController,TREATMENT_TAB_INDEX, &ledLights);
   connectNeuresetController(treatmentController);
     
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
@@ -33,6 +42,9 @@ MainWindow::~MainWindow()
   delete treatmentController;
   delete logsController;
   delete computerView;
+  delete ledLightGreen;
+  delete ledLightBlue;
+  delete ledLightRed;
   delete ui;
 }
 
@@ -49,6 +61,9 @@ void MainWindow::uiSetup()
   ui->primaryTabs->setTabText(SETTINGS_TAB_INDEX, SETTINGS_TAB_TEXT);
   ui->primaryTabs->setTabText(MENU_TAB_INDEX, MENU_TAB_TEXT);
   ui->primaryTabs->setCurrentIndex(viewSelectedTabIndex);
+  ui->ledLayout->addWidget(ledLightBlue);
+  ui->ledLayout->addWidget(ledLightGreen);
+  ui->ledLayout->addWidget(ledLightRed);
 }
 
 void MainWindow::connectNeuresetController(NeuresetController* controller)

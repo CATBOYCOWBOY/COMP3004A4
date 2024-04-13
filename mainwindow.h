@@ -53,6 +53,13 @@ private:
   Ui::MainWindow *ui;
   ComputerView *computerView;
   TimeController *timeController;
+  TreatmentController *treatmentController;
+  MenuController *menuController;
+  LedLight *ledLightBlue;
+  LedLight *ledLightGreen;
+  LedLight *ledLightRed;
+  QList<LedLight*> ledLights;
+
   void uiSetup();
 
   void connectNeuresetController(NeuresetController*);
@@ -60,8 +67,6 @@ private:
   int viewSelectedTabIndex;
 
   LogsController *logsController;
-  TreatmentController *treatmentController;
-  MenuController *menuController;
 
   bool isBatterySuffient;
   bool areAllEEGNodesConnected;

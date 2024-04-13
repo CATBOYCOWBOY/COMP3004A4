@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+  CustomWidgets/ledlight.cpp \
   LogsController.cpp \
   computerview.cpp \
   eegsensor.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
   treatmentcontroller.cpp
 
 HEADERS += \
+  CustomWidgets/ledlight.h \
   LogsController.h \
   computerview.h \
   constants.h \
