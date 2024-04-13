@@ -16,6 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
@@ -49,6 +50,8 @@ public:
     QCustomPlot *waveDisplay;
     QLabel *waveLabel;
     QWidget *tab_3;
+    QPushButton *uploadLogsToComputerButton;
+    QListWidget *sessionsList;
     QWidget *tab_2;
     QLCDNumber *yearDisplay;
     QLCDNumber *monthDisplay;
@@ -103,7 +106,7 @@ public:
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         primaryTabs = new QTabWidget(centralwidget);
         primaryTabs->setObjectName(QString::fromUtf8("primaryTabs"));
-        primaryTabs->setGeometry(QRect(10, 10, 701, 471));
+        primaryTabs->setGeometry(QRect(50, 10, 701, 471));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         treatmentProgress = new QProgressBar(tab);
@@ -125,6 +128,12 @@ public:
         primaryTabs->addTab(tab, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        uploadLogsToComputerButton = new QPushButton(tab_3);
+        uploadLogsToComputerButton->setObjectName(QString::fromUtf8("uploadLogsToComputerButton"));
+        uploadLogsToComputerButton->setGeometry(QRect(460, 400, 221, 25));
+        sessionsList = new QListWidget(tab_3);
+        sessionsList->setObjectName(QString::fromUtf8("sessionsList"));
+        sessionsList->setGeometry(QRect(20, 20, 661, 371));
         primaryTabs->addTab(tab_3, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -276,7 +285,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        primaryTabs->setCurrentIndex(3);
+        primaryTabs->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -296,6 +305,7 @@ public:
         treatmentAlertLabel->setText(QString());
         waveLabel->setText(QString());
         primaryTabs->setTabText(primaryTabs->indexOf(tab), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
+        uploadLogsToComputerButton->setText(QCoreApplication::translate("MainWindow", "Upload logs to computer", nullptr));
         primaryTabs->setTabText(primaryTabs->indexOf(tab_3), QCoreApplication::translate("MainWindow", "Page", nullptr));
         primaryTabs->setTabText(primaryTabs->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
         menuTabTreatment->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));

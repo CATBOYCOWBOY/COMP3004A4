@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = COMP3004A41.0.0
-DISTDIR = /media/sf_3004_shared/COMP3004A4/.tmp/COMP3004A41.0.0
+DISTDIR = /home/student/COMP3004A4/.tmp/COMP3004A41.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5PrintSupport.so /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
@@ -52,18 +52,18 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Logs.cpp \
+SOURCES       = LogsController.cpp \
 		computerview.cpp \
 		eegsensor.cpp \
 		main.cpp \
 		mainwindow.cpp \
-		Session.cpp \
 		qcustomplot.cpp \
 		timecontroller.cpp \
 		timeupdater.cpp \
 		menucontroller.cpp \
 		neuresetcontroller.cpp \
 		treatmentcontroller.cpp qrc_resources.cpp \
+		moc_LogsController.cpp \
 		moc_computerview.cpp \
 		moc_eegsensor.cpp \
 		moc_mainwindow.cpp \
@@ -72,12 +72,11 @@ SOURCES       = Logs.cpp \
 		moc_timeupdater.cpp \
 		moc_menucontroller.cpp \
 		moc_treatmentcontroller.cpp
-OBJECTS       = Logs.o \
+OBJECTS       = LogsController.o \
 		computerview.o \
 		eegsensor.o \
 		main.o \
 		mainwindow.o \
-		Session.o \
 		qcustomplot.o \
 		timecontroller.o \
 		timeupdater.o \
@@ -85,6 +84,7 @@ OBJECTS       = Logs.o \
 		neuresetcontroller.o \
 		treatmentcontroller.o \
 		qrc_resources.o \
+		moc_LogsController.o \
 		moc_computerview.o \
 		moc_eegsensor.o \
 		moc_mainwindow.o \
@@ -93,8 +93,7 @@ OBJECTS       = Logs.o \
 		moc_timeupdater.o \
 		moc_menucontroller.o \
 		moc_treatmentcontroller.o
-DIST          = logs.txt \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
+DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/sanitize.conf \
@@ -151,7 +150,6 @@ DIST          = logs.txt \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -171,24 +169,24 @@ DIST          = logs.txt \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		COMP3004A4.pro Logs.h \
+		COMP3004A4.pro LogsController.h \
 		computerview.h \
 		constants.h \
 		eegsensor.h \
 		mainwindow.h \
 		constants.h \
-		Session.h \
 		qcustomplot.h \
 		timecontroller.h \
 		timeupdater.h \
 		menucontroller.h \
 		neuresetController.h \
-		treatmentcontroller.h Logs.cpp \
+		treatmentcontroller.h \
+		data.csv \
+		logs.csv LogsController.cpp \
 		computerview.cpp \
 		eegsensor.cpp \
 		main.cpp \
 		mainwindow.cpp \
-		Session.cpp \
 		qcustomplot.cpp \
 		timecontroller.cpp \
 		timeupdater.cpp \
@@ -263,7 +261,6 @@ Makefile: COMP3004A4.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.c
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -343,7 +340,6 @@ Makefile: COMP3004A4.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.c
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -381,8 +377,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Logs.h computerview.h constants.h eegsensor.h mainwindow.h constants.h Session.h qcustomplot.h timecontroller.h timeupdater.h menucontroller.h neuresetController.h treatmentcontroller.h $(DISTDIR)/
-	$(COPY_FILE) --parents Logs.cpp computerview.cpp eegsensor.cpp main.cpp mainwindow.cpp Session.cpp qcustomplot.cpp timecontroller.cpp timeupdater.cpp menucontroller.cpp neuresetcontroller.cpp treatmentcontroller.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents LogsController.h computerview.h constants.h eegsensor.h mainwindow.h constants.h qcustomplot.h timecontroller.h timeupdater.h menucontroller.h neuresetController.h treatmentcontroller.h data.csv logs.csv $(DISTDIR)/
+	$(COPY_FILE) --parents LogsController.cpp computerview.cpp eegsensor.cpp main.cpp mainwindow.cpp qcustomplot.cpp timecontroller.cpp timeupdater.cpp menucontroller.cpp neuresetcontroller.cpp treatmentcontroller.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents computerview.ui mainwindow.ui $(DISTDIR)/
 
 
@@ -426,19 +422,29 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_computerview.cpp moc_eegsensor.cpp moc_mainwindow.cpp moc_qcustomplot.cpp moc_timecontroller.cpp moc_timeupdater.cpp moc_menucontroller.cpp moc_treatmentcontroller.cpp
+compiler_moc_header_make_all: moc_LogsController.cpp moc_computerview.cpp moc_eegsensor.cpp moc_mainwindow.cpp moc_qcustomplot.cpp moc_timecontroller.cpp moc_timeupdater.cpp moc_menucontroller.cpp moc_treatmentcontroller.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_computerview.cpp moc_eegsensor.cpp moc_mainwindow.cpp moc_qcustomplot.cpp moc_timecontroller.cpp moc_timeupdater.cpp moc_menucontroller.cpp moc_treatmentcontroller.cpp
+	-$(DEL_FILE) moc_LogsController.cpp moc_computerview.cpp moc_eegsensor.cpp moc_mainwindow.cpp moc_qcustomplot.cpp moc_timecontroller.cpp moc_timeupdater.cpp moc_menucontroller.cpp moc_treatmentcontroller.cpp
+moc_LogsController.cpp: LogsController.h \
+		Session.h \
+		constants.h \
+		neuresetController.h \
+		eegsensor.h \
+		ui_mainwindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include LogsController.h -o moc_LogsController.cpp
+
 moc_computerview.cpp: computerview.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include computerview.h -o moc_computerview.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include computerview.h -o moc_computerview.cpp
 
 moc_eegsensor.cpp: eegsensor.h \
 		constants.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include eegsensor.h -o moc_eegsensor.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include eegsensor.h -o moc_eegsensor.cpp
 
 moc_mainwindow.cpp: mainwindow.h \
 		computerview.h \
@@ -446,54 +452,52 @@ moc_mainwindow.cpp: mainwindow.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		timeupdater.h \
-		treatmentcontroller.h \
+		LogsController.h \
+		Session.h \
 		eegsensor.h \
+		treatmentcontroller.h \
 		menucontroller.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 moc_qcustomplot.cpp: qcustomplot.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include qcustomplot.h -o moc_qcustomplot.cpp
 
 moc_timecontroller.cpp: timecontroller.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		timeupdater.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include timecontroller.h -o moc_timecontroller.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include timecontroller.h -o moc_timecontroller.cpp
 
 moc_timeupdater.cpp: timeupdater.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include timeupdater.h -o moc_timeupdater.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include timeupdater.h -o moc_timeupdater.cpp
 
 moc_menucontroller.cpp: menucontroller.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include menucontroller.h -o moc_menucontroller.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include menucontroller.h -o moc_menucontroller.cpp
 
 moc_treatmentcontroller.cpp: treatmentcontroller.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		eegsensor.h \
 		timecontroller.h \
 		timeupdater.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /media/sf_3004_shared/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/media/sf_3004_shared/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include treatmentcontroller.h -o moc_treatmentcontroller.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/COMP3004A4/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/COMP3004A4 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include treatmentcontroller.h -o moc_treatmentcontroller.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -521,9 +525,13 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-Logs.o: Logs.cpp Logs.h \
-		Session.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Logs.o Logs.cpp
+LogsController.o: LogsController.cpp LogsController.h \
+		Session.h \
+		constants.h \
+		neuresetController.h \
+		eegsensor.h \
+		ui_mainwindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LogsController.o LogsController.cpp
 
 computerview.o: computerview.cpp computerview.h \
 		ui_computerview.h
@@ -539,10 +547,11 @@ main.o: main.cpp mainwindow.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		timeupdater.h \
-		treatmentcontroller.h \
+		LogsController.h \
+		Session.h \
 		eegsensor.h \
+		treatmentcontroller.h \
 		menucontroller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
@@ -552,15 +561,13 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		timeupdater.h \
-		treatmentcontroller.h \
+		LogsController.h \
+		Session.h \
 		eegsensor.h \
+		treatmentcontroller.h \
 		menucontroller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
-
-Session.o: Session.cpp Session.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Session.o Session.cpp
 
 qcustomplot.o: qcustomplot.cpp qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o qcustomplot.cpp
@@ -569,7 +576,6 @@ timecontroller.o: timecontroller.cpp timecontroller.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		timeupdater.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o timecontroller.o timecontroller.cpp
 
@@ -579,7 +585,6 @@ timeupdater.o: timeupdater.cpp timeupdater.h
 menucontroller.o: menucontroller.cpp menucontroller.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		constants.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o menucontroller.o menucontroller.cpp
 
@@ -590,7 +595,6 @@ treatmentcontroller.o: treatmentcontroller.cpp treatmentcontroller.h \
 		constants.h \
 		neuresetController.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
 		eegsensor.h \
 		timecontroller.h \
 		timeupdater.h
@@ -598,6 +602,9 @@ treatmentcontroller.o: treatmentcontroller.cpp treatmentcontroller.h \
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
+
+moc_LogsController.o: moc_LogsController.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_LogsController.o moc_LogsController.cpp
 
 moc_computerview.o: moc_computerview.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_computerview.o moc_computerview.cpp
