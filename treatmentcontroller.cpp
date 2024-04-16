@@ -2,9 +2,8 @@
 #include "treatmentcontroller.h"
 #include "constants.h"
 
-TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i, QList<LedLight*>* leds, LogsController *lc) :
+TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i, LogsController *lc) :
   ui(mw),
-  ledLights(leds),
   timeController(tc),
   logsController(lc),
   controllerMutex(new QMutex()),
@@ -36,28 +35,6 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   connect(ui->batteryResetAction, &QAction::triggered, this, &TreatmentController::onBatteryResetCondition);
   connect(ui->disconnectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableDisconnect);
   connect(ui->connectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableReconnect);
-
-  //connect with LED behavior
-  // connect and disconnect
-  ledLights->at(0)->turnOn(); //assume the eeg is connected at the beginning the device is on, blue light is on
-  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(0), &LedLight::shutOff);
-  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(2), &LedLight::turnOn);
-  connect(this, &TreatmentController::sensorDisconnected, ledLights->at(2), &LedLight::startFlashing);
-  connect(this, &TreatmentController::connectionReset, ledLights->at(0), &LedLight::turnOn);
-  connect(this, &TreatmentController::connectionReset, ledLights->at(2), &LedLight::shutOff);
-
-  // treatment
-  connect(this, &TreatmentController::treatmentStarted, ledLights->at(1), &LedLight::turnOn); // if treatment starts, turn on green light
-  connect(this, &TreatmentController::treatmentStarted, ledLights->at(1), &LedLight::startFlashing); // green light flashing
-  connect(this, &TreatmentController::treatmentPaused, ledLights->at(1), &LedLight::shutOff);
-  connect(this, &TreatmentController::treatmentUnpaused, ledLights->at(1), &LedLight::turnOn);
-  connect(this, &TreatmentController::treatmentUnpaused, ledLights->at(1), &LedLight::startFlashing);
-  connect(this, &TreatmentController::treatmentStopped, ledLights->at(1), &LedLight::shutOff);
-  connect(this, &TreatmentController::treatmentDone, ledLights->at(1), &LedLight::shutOff);
-
-  // battery
-  connect(this, &TreatmentController::batteryLow, ledLights->at(2), &LedLight::turnOn);
-  connect(this, &TreatmentController::batteryReset, ledLights->at(2), &LedLight::shutOff);
 
   for (int i = 0; i < NUM_SAMPLES; i++)
   {
@@ -125,16 +102,19 @@ void TreatmentController::onPlayButtonPressed(int i)
   if (controllerId != i || batteryTreatmentsLeft == 0)
   {
     return;
-  }
-  if (isTreatmentPaused)
+  } else if (isTreatmentPaused)
   {
     isTreatmentPaused = false;
     emit treatmentUnpaused();
+    return;
+  } else if (batteryTreatmentsLeft == 0) {
     return;
   }
   qDebug() << "NEURESET STARTING TREATMENT";
   ui->treatmentProgress->setValue(0);
   treatmentStartTime = timeController->getTime();
+  startingSumBaseline = 0;
+  endingSumBaseline = 0;
   emit treatmentStarted();
 }
 
@@ -203,7 +183,6 @@ void TreatmentController::onWaveFormUpdate(int i)
 void TreatmentController::onSensorFinished(double i)
 {
   controllerMutex->lock();
-  qDebug() << "Sensor finished";
   unfinishedSensors = unfinishedSensors - 1;
   endingSumBaseline = endingSumBaseline + i;
   numCyclesRemaining = numCyclesRemaining - 1;
@@ -215,8 +194,6 @@ void TreatmentController::onSensorFinished(double i)
     isTreatmentRunning = false;
     isTreatmentPaused = false;
     batteryTreatmentsLeft -= 1;
-    qDebug() << "init baseline: " << startingSumBaseline / NUM_SITES;
-    qDebug() << "end baseline: " << endingSumBaseline / NUM_SITES;
     QString logString = treatmentStartTime +
                         QString::fromStdString(",") +
                         QString::number(startingSumBaseline / NUM_SITES)+
@@ -226,6 +203,9 @@ void TreatmentController::onSensorFinished(double i)
                         QString::number(endingSumBaseline / NUM_SITES);
     emit treatmentDone();
     emit logTreatment(logString);
+    if (batteryTreatmentsLeft <= 1) {
+      emit batteryLow();
+    }
   }
   controllerMutex->unlock();
 }
@@ -233,7 +213,6 @@ void TreatmentController::onSensorFinished(double i)
 void TreatmentController::onSensorStarted(double i)
 {
   controllerMutex->lock();
-  qDebug() << "Sensor started";
   numCyclesRemaining = numCyclesRemaining + NUM_FEEDBACK_ROUNDS + 1; // 1 cycle for each feedback round, 1 for final analysis
   unfinishedSensors = unfinishedSensors + 1;
   startingSumBaseline = startingSumBaseline + i;
@@ -296,5 +275,5 @@ void TreatmentController::connectSensorThreads(EEGSensor *sensor, QThread *threa
   connect(sensor, &EEGSensor::frequencyUpdated, this, &TreatmentController::onWaveFormUpdate, Qt::DirectConnection);
   connect(sensor, &EEGSensor::cycleComplete, this, &TreatmentController::onCycleComplete, Qt::DirectConnection);
 
-  connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);  
+  connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);
 }

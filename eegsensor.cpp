@@ -176,6 +176,7 @@ void EEGSensor::runTreatment()
   baseline = getBaselineFreq();
   emit cycleComplete();
   emit treatmentEnded(baseline);
+
   isTreatmentOperating = false;
   offsetsApplied = 0;
   for (int i = 0; i < NUM_FEEDBACK_ROUNDS; i++)

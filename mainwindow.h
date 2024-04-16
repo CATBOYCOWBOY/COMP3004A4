@@ -10,6 +10,7 @@
 #include "LogsController.h"
 #include "treatmentcontroller.h"
 #include "menucontroller.h"
+#include "CustomWidgets/lightwithlabel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -55,10 +56,10 @@ private:
   TimeController *timeController;
   TreatmentController *treatmentController;
   MenuController *menuController;
-  LedLight *ledLightBlue;
-  LedLight *ledLightGreen;
-  LedLight *ledLightRed;
-  QList<LedLight*> ledLights;
+
+  LightWithLabel *connectionLight;
+  LightWithLabel *treatmentLight;
+  LightWithLabel *batteryLight;
 
   void uiSetup();
 
