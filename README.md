@@ -31,7 +31,7 @@ Tom
 - main menu controller logic
 - this readme
 
-Jenny
+Jiayu
 - display of logged sessions on PC side (alternate QWindow)
 - data retrieval logic from CSV
 - table display to parse out raw data from 
