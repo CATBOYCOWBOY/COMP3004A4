@@ -20,16 +20,20 @@ CustomLedWidget::~CustomLedWidget()
 
 void CustomLedWidget::turnOn(bool isFlashing)
 {
+  if (on) {
+    return;
+  }
   isFlashingLight = isFlashing;
   on = true;
   isLightActive = true;
   if (isFlashingLight)
   {
     timer->start(LED_FLASH_INTERVAL);
+
     return;
   }
   timer->stop();
-  update();
+  repaint();
 }
 
 void CustomLedWidget::turnOff()
@@ -40,7 +44,7 @@ void CustomLedWidget::turnOff()
   {
     timer->stop();
   }
-  update();
+  repaint();
 }
 
 void CustomLedWidget::setColor(QColor newColor)
@@ -52,8 +56,8 @@ void CustomLedWidget::flash()
 {
   mutex->lock();
   isLightActive = !isLightActive;
-  update();
   mutex->unlock();
+  repaint();
 }
 
 void CustomLedWidget::paintEvent(QPaintEvent *)

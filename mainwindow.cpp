@@ -9,14 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
   // setup led light
-  treatmentLight = new LightWithLabel(this, "treatment", Qt::green);
-  connectionLight = new LightWithLabel(this, "sensors", Qt::yellow);
-  batteryLight = new LightWithLabel(this, "battery", Qt::red);
-
-  treatmentLight->turnOff();
-  connectionLight->turnOff();
-  batteryLight->turnOff();
-
   uiSetup();
 
   computerView = new ComputerView(this);
@@ -36,14 +28,6 @@ MainWindow::MainWindow(QWidget *parent)
   // connect treatment controller log treatment to logs controller
   connect(treatmentController, &TreatmentController::logTreatment, this, &MainWindow::testTreatmentLog, Qt::DirectConnection);
   connect(treatmentController, &TreatmentController::logTreatment, logsController, &LogsController::addSessionToLogs, Qt::DirectConnection);
-
-  // connect treatment controller to lights
-  connect(treatmentController, &TreatmentController::batteryLow, batteryLight, &LightWithLabel::solidOn);
-  connect(treatmentController, &TreatmentController::batteryReset, batteryLight, &LightWithLabel::turnOff);
-  connect(treatmentController, &TreatmentController::sensorDisconnected, connectionLight, &LightWithLabel::flashOn);
-  connect(treatmentController, &TreatmentController::connectionReset, connectionLight, &LightWithLabel::turnOff);
-  connect(treatmentController, &TreatmentController::treatmentStarted, treatmentLight, &LightWithLabel::flashOn);
-  connect(treatmentController, &TreatmentController::treatmentDone, treatmentLight, &LightWithLabel::turnOff);
 }
 
 MainWindow::~MainWindow()
@@ -52,9 +36,6 @@ MainWindow::~MainWindow()
   delete treatmentController;
   delete logsController;
   delete computerView;
-  delete treatmentLight;
-  delete batteryLight;
-  delete connectionLight;
   delete ui;
 }
 
@@ -71,9 +52,6 @@ void MainWindow::uiSetup()
   ui->primaryTabs->setTabText(SETTINGS_TAB_INDEX, SETTINGS_TAB_TEXT);
   ui->primaryTabs->setTabText(MENU_TAB_INDEX, MENU_TAB_TEXT);
   ui->primaryTabs->setCurrentIndex(viewSelectedTabIndex);
-  ui->ledLayout->addWidget(treatmentLight);
-  ui->ledLayout->addWidget(connectionLight);
-  ui->ledLayout->addWidget(batteryLight);
 }
 
 void MainWindow::connectNeuresetController(NeuresetController* controller)

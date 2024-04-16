@@ -22,6 +22,8 @@ signals:
   void treatmentEnded(double);
   void frequencyUpdated(int);
   void cycleComplete();
+  void active();
+  void inactive();
 
   void fiveMinutesDisconnected();
 
