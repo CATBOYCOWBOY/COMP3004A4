@@ -40,7 +40,7 @@ void LogsController::updateUi(int id, QStringList logData) {
     ui->sessionsList->insertItem(id, logsToString(id, logData[0], logData[1], logData[2], logData[3]));
 }
 
-QString LogsController::logsToString(int sessionId, QString startTime, QString endTime, QString startBaseline, QString endBaseline) {
+QString LogsController::logsToString(int sessionId, QString startTime, QString startBaseline, QString endTime, QString endBaseline) {
     QString formattedString = QString(
         "-----------------SESSION ID: %1-----------------\n->Start Time: %2\n->Start Baseline: %3\n->End Time: %4\n->End Baseline: %5\n-------------------------------------------------------\n"
     ).arg(
