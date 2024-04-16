@@ -16,14 +16,12 @@ public:
   explicit ComputerView(QWidget *parent = nullptr);
   ~ComputerView();
 
-protected:
-    void readLogs();
-
 private slots:
     void on_refreshButton_clicked();
 
 private:
   Ui::ComputerView *ui;
+  void readLogs();
 };
 
 #endif // COMPUTERVIEW_H

@@ -8,6 +8,7 @@ ComputerView::ComputerView(QWidget *parent) :
   ui->setupUi(this);
   ui->tableWidget_Item_Data->setRowCount(100);
   ui->tableWidget_Item_Data->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeMode::Stretch);
+  readLogs();
 }
 
 ComputerView::~ComputerView()

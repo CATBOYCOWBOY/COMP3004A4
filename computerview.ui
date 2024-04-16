@@ -47,7 +47,7 @@
       </attribute>
       <column>
        <property name="text">
-        <string>Start Datetime</string>
+        <string>Before Datetime</string>
        </property>
       </column>
       <column>
