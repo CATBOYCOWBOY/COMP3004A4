@@ -12,28 +12,30 @@ LogsController::LogsController(QObject *parent, Ui::MainWindow *mw, int i) :
 
     ui->primaryTabs->setTabText(LOGS_TAB_INDEX, LOGS_TAB_TEXT);
     // copy and paste logs.csv in this directory into the logs.csv file in the build folder
-    parseLogs();
-}
-
-LogsController::~LogsController() {}
-
-void LogsController::parseLogs() {
-    // parse file for log history
-    QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
-    if (CSVFile.open(QIODevice::ReadWrite)) {
-        QTextStream stream(&CSVFile);
-        while (stream.atEnd() == false) {
-            QString line = stream.readLine();
-            QStringList data = line.split(",");
-            this->sessionsList.append(data);
-        }
-    }
-    CSVFile.close();
+    this->sessionsList = parseLogs();
 
     // display any log history on startup
     for (int i = 0; i < this->sessionsList.size(); i++) {
         updateUi(i + 1, this->sessionsList[i]);
     }
+}
+
+LogsController::~LogsController() {}
+
+QList<QStringList> LogsController::parseLogs() {
+    QList<QStringList> sessionsData;
+    // parse file for log history
+    QFile logsCSV(QCoreApplication::applicationDirPath() + "/logs.csv");
+    if (logsCSV.open(QIODevice::ReadWrite)) {
+        QTextStream stream(&logsCSV);
+        while (stream.atEnd() == false) {
+            QString line = stream.readLine();
+            QStringList data = line.split(",");
+            sessionsData.append(data);
+        }
+    }
+    logsCSV.close();    
+    return sessionsData;
 }
 
 void LogsController::updateUi(int id, QStringList logData) {
@@ -53,17 +55,29 @@ QString LogsController::logsToString(int sessionId, QString startTime, QString s
     return formattedString;
 }
 
-void LogsController::writeLogsToDisk() {
+void LogsController::writeLogsToComputer() {
+    // write whatever is currently in logs.csv to data.csv
+    QList<QStringList> currentSessionsData = parseLogs();
+    QFile dataCSV(QCoreApplication::applicationDirPath() + "/data.csv");
+    if (dataCSV.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        QTextStream stream(&dataCSV);
+        for (int i = 0; i < currentSessionsData.size(); i++) {
+            stream << currentSessionsData[i][0] << "," << currentSessionsData[i][1] << "," << currentSessionsData[i][2] << "," << currentSessionsData[i][3] << Qt::endl;
+        }
+    }
+    dataCSV.close();
+}
+
+void LogsController::writeLogsToDevice() {
     // write to logs.csv and save
-    QFile CSVFile(QCoreApplication::applicationDirPath() + "/logs.csv");
-    if (CSVFile.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
-        QTextStream stream(&CSVFile);
+    QFile logsCSV(QCoreApplication::applicationDirPath() + "/logs.csv");
+    if (logsCSV.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
+        QTextStream stream(&logsCSV);
         for (int i = 0; i < this->sessionsList.size(); i++) {
             stream << this->sessionsList[i][0] << "," << this->sessionsList[i][1] << "," << this->sessionsList[i][2] << "," << this->sessionsList[i][3] << Qt::endl;
         }
     }
-    CSVFile.close();
-
+    logsCSV.close();
 }
 
 // slots
@@ -73,6 +87,7 @@ void LogsController::addSessionToLogs(const QString& str) {
     QStringList newData = str.split(",");
     this->sessionsList.append(newData);
     updateUi(this->sessionsList.size(), newData);
+    writeLogsToDevice();
 }
 
 void LogsController::onUpButtonPressed(int i) {
@@ -89,8 +104,7 @@ void LogsController::onDownButtonPressed(int i) {
 
 void LogsController::onPlayButtonPressed(int i) {
     if (controllerId != i) { return; }
-    writeLogsToDisk();
-    emit uploadLogsToComputerButtonClicked();
+    writeLogsToComputer();
     qDebug() << "play was pressed" << Qt::endl;
 }
 
