@@ -21,9 +21,7 @@ class LogsController : public NeuresetController {
 
         // member functions
         void parseLogs();
-        void updateUi();
-        void addSession();
-        void uploadLogsToComputer();
+        void updateUi(int id, QStringList data);
         QString logsToString(int sessionId, QString startTime, QString endTime, QString startBaseline, QString endBaseline);
         void writeLogsToDisk();
 
@@ -35,9 +33,11 @@ class LogsController : public NeuresetController {
         void onPauseButtonPressed(int);
         void onStopButtonPressed(int);
 
-//    signals:
-//        void uploadLogsToComputerButtonClicked();
+        void addSessionToLogs(const QString&);     
 
+    signals:
+        void uploadLogsToComputerButtonClicked();
+    
     private:
         QList<QStringList> sessionsList;
         Ui::MainWindow *ui;

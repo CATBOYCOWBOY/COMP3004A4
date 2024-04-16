@@ -2,10 +2,11 @@
 #include "treatmentcontroller.h"
 #include "constants.h"
 
-TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i, QList<LedLight*>* leds) :
+TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, TimeController *tc, int i, QList<LedLight*>* leds, LogsController *lc) :
   ui(mw),
   ledLights(leds),
   timeController(tc),
+  logsController(lc),
   controllerMutex(new QMutex()),
   batteryTreatmentsLeft(BATTERY_TREATMENT_CAPACITY),
   isTreatmentRunning(false),

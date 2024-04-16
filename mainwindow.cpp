@@ -33,8 +33,9 @@ MainWindow::MainWindow(QWidget *parent)
   menuController = new MenuController(this, ui, MENU_TAB_INDEX);
   connectNeuresetController(menuController);
 
-  // connect treatment coontroller log treatment to logs controller like this
+  // connect treatment controller log treatment to logs controller
   connect(treatmentController, &TreatmentController::logTreatment, this, &MainWindow::testTreatmentLog, Qt::DirectConnection);
+  connect(treatmentController, &TreatmentController::logTreatment, logsController, &LogsController::addSessionToLogs, Qt::DirectConnection);
 }
 
 MainWindow::~MainWindow()
