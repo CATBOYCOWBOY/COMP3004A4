@@ -29,9 +29,9 @@ QString TimeController::getTime()
 
 void TimeController::onDeviceTimeUpdate()
 {
-    qDebug() << "onDeviceTimeUpdate";
+    // qDebug() << "onDeviceTimeUpdate";
     *currentDateTime = QDateTime::currentDateTime();
-    qDebug() << getTime();
+    // qDebug() << getTime();
     if(viewTime == true){updateTimeDisplay();}
 }
 
