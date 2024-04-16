@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
   computerView = new ComputerView(this);
 
   timeController = new TimeController(this, ui, SETTINGS_TAB_INDEX);
+  connectNeuresetController(timeController);
 
   logsController = new LogsController(this, ui, LOGS_TAB_INDEX);
   connectNeuresetController(logsController);
@@ -109,6 +110,7 @@ void MainWindow::on_pauseButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
+  qDebug() << "stop button clicked";
   emit stopButtonClicked(viewSelectedTabIndex);
 }
 
