@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -97,19 +97,6 @@
      <attribute name="title">
       <string>Page</string>
      </attribute>
-     <widget class="QPushButton" name="uploadLogsToComputerButton">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>400</y>
-        <width>221</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Upload logs to computer</string>
-      </property>
-     </widget>
      <widget class="QListWidget" name="sessionsList">
       <property name="geometry">
        <rect>
@@ -118,6 +105,19 @@
         <width>661</width>
         <height>371</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>410</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Upload logs with play button</string>
       </property>
      </widget>
     </widget>
@@ -395,6 +395,16 @@
      </rect>
     </property>
     <layout class="QHBoxLayout" name="ledLayout"/>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>500</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

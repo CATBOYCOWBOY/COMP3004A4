@@ -24,7 +24,6 @@ private:
   bool isFlashingLight;
   bool isLightActive;
   QColor color;
-  Qt::BrushStyle pattern;
   QTimer *timer;
   QMutex *mutex;
 };

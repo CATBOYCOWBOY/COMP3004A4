@@ -21,6 +21,7 @@ void ComputerView::readLogs() {
     // For testing, copy data.csv to ~/build-COMP3004A4-Desktop-Debug/COMP3004A4 path
 
     if (CSVFile.open(QIODevice::ReadWrite)) {
+      qDebug() << "here";
       QTextStream Stream(&CSVFile);
       int rowIndex = 0;
       while (Stream.atEnd() == false) {
