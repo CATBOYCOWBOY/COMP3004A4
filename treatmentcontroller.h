@@ -10,6 +10,7 @@
 #include "eegsensor.h"
 #include "timecontroller.h"
 #include "LogsController.h"
+#include "CustomWidgets/lightwithlabel.h"
 
 class TreatmentController: public NeuresetController
 {
@@ -37,7 +38,7 @@ signals:
   void logTreatment(const QString&);
   void shutOff();
 
-public slots:
+private slots:
 
   void onUpButtonPressed(int);
   void onDownButtonPressed(int);
@@ -54,6 +55,8 @@ public slots:
   void onSensorFinished(double);
   void onSensorStarted(double);
   void onCycleComplete();
+  void onApply();
+  void onApplyEnded();
 
   void onFiveMinutesDisconnected();
 private:
@@ -61,6 +64,11 @@ private:
   TimeController *timeController;
   LogsController *logsController;
   QMutex* controllerMutex;
+
+  LightWithLabel *connectionLight;
+  LightWithLabel *treatmentLight;
+  LightWithLabel *batteryLight;
+
   int batteryTreatmentsLeft;
   bool isBatteryLow = false;
   bool isCableDisconnected = false;
@@ -76,6 +84,7 @@ private:
 
   int numCyclesRemaining; // number of treatment cycles and final analysis remaning, used for calculating progress
   int unfinishedSensors;
+  int activeSensors;
   double startingSumBaseline;
   double endingSumBaseline;
 

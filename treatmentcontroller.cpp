@@ -13,6 +13,7 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   selectedSensorId(0),
   numCyclesRemaining(0),
   unfinishedSensors(0),
+  activeSensors(0),
   defaultYSeries(NUM_SAMPLES),
   xSeries(NUM_SAMPLES),
   treatmentStartTime("")
@@ -49,6 +50,18 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   ui->waveDisplay->xAxis->setRange(0, INTERVAL_END);
   ui->waveDisplay->yAxis->setRange(-800, 800); // max possible combined amplitude on 4 waves w/ amplitude 200
   ui->waveDisplay->replot();
+
+  treatmentLight = new LightWithLabel(nullptr, "treatment", Qt::green);
+  connectionLight = new LightWithLabel(nullptr, "contact", Qt::blue);
+  batteryLight = new LightWithLabel(nullptr, "errors", Qt::red);
+
+  treatmentLight->turnOff();
+  connectionLight->turnOff();
+  batteryLight->turnOff();
+
+  ui->ledLayout->addWidget(connectionLight);
+  ui->ledLayout->addWidget(treatmentLight);
+  ui->ledLayout->addWidget(batteryLight);
 
   initializeSensorsAndThreads();
 }
@@ -115,6 +128,7 @@ void TreatmentController::onPlayButtonPressed(int i)
   treatmentStartTime = timeController->getTime();
   startingSumBaseline = 0;
   endingSumBaseline = 0;
+  connectionLight->solidOn();
   emit treatmentStarted();
 }
 
@@ -144,16 +158,19 @@ void TreatmentController::onStopButtonPressed(int i)
   numCyclesRemaining = 0;
   ui->waveDisplay->graph(0)->setData(xSeries, defaultYSeries);
   ui->waveDisplay->replot();
+  connectionLight->turnOff();
   emit treatmentStopped();
 }
 
 void TreatmentController::onBatteryLowCondition()
 {
+  batteryLight->solidOn();
   emit batteryLow();
 }
 
 void TreatmentController::onBatteryResetCondition()
 {
+  batteryLight->turnOff();
   batteryTreatmentsLeft = BATTERY_TREATMENT_CAPACITY;
   emit batteryReset();
 }
@@ -161,10 +178,15 @@ void TreatmentController::onBatteryResetCondition()
 void TreatmentController::onCableDisconnect()
 {
   emit sensorDisconnected();
+  connectionLight->turnOff();
+  batteryLight->flashOn();
 }
 
 void TreatmentController::onCableReconnect()
 {
+  if (isTreatmentRunning)
+    connectionLight->solidOn();
+  batteryLight->turnOff();
   emit connectionReset();
 }
 
@@ -227,6 +249,29 @@ void TreatmentController::onCycleComplete()
   controllerMutex->unlock();
 }
 
+// when treatment application starts
+void TreatmentController::onApply()
+{
+  controllerMutex->lock();
+  activeSensors = activeSensors + 1;
+  controllerMutex->unlock();
+  if (activeSensors > 0) {
+    treatmentLight->solidOn();
+  }
+}
+
+// when treatment application ends
+void TreatmentController::onApplyEnded()
+{
+  controllerMutex->lock();
+  activeSensors = activeSensors - 1;
+  controllerMutex->unlock();
+  if (activeSensors == 0)
+  {
+    treatmentLight->turnOff();
+  }
+}
+
 void TreatmentController::onFiveMinutesDisconnected()
 {
   emit shutOff();
@@ -274,6 +319,9 @@ void TreatmentController::connectSensorThreads(EEGSensor *sensor, QThread *threa
   connect(sensor, &EEGSensor::treatmentStarted, this, &TreatmentController::onSensorStarted, Qt::DirectConnection);
   connect(sensor, &EEGSensor::frequencyUpdated, this, &TreatmentController::onWaveFormUpdate, Qt::DirectConnection);
   connect(sensor, &EEGSensor::cycleComplete, this, &TreatmentController::onCycleComplete, Qt::DirectConnection);
+
+  connect(sensor, &EEGSensor::active, this, &TreatmentController::onApply, Qt::QueuedConnection);
+  connect(sensor, &EEGSensor::inactive, this, &TreatmentController::onApplyEnded, Qt::QueuedConnection);
 
   connect(sensor, &EEGSensor::fiveMinutesDisconnected, this, &TreatmentController::onFiveMinutesDisconnected, Qt::DirectConnection);
 }

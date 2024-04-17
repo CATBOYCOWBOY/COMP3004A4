@@ -16,7 +16,7 @@
 #define MENU_TAB_TEXT "Menu"
 #define MENU_TAB_INDEX 3
 
-#define LED_DIAMETER 24
+#define LED_DIAMETER 16
 #define LED_FLASH_INTERVAL 420
 
 #define INITIAL_VIEW_TAB_INDEX 3

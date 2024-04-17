@@ -144,6 +144,7 @@ void EEGSensor::runTreatment()
     }
 
     // 1 second, give treatment
+    emit active();
     for (int j = 0; j < NUM_OFFSETS; j++)
     {
       if (!isTreatmentOperating)
@@ -158,6 +159,7 @@ void EEGSensor::runTreatment()
       feedbackFreqs[i][j] = getBaselineFreq() + OFFSET_FREQ_VALUE;
       emit frequencyUpdated(sensorNumber);
     }
+    emit inactive();
     emit cycleComplete();
   }
 

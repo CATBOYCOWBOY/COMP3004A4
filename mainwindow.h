@@ -57,10 +57,6 @@ private:
   TreatmentController *treatmentController;
   MenuController *menuController;
 
-  LightWithLabel *connectionLight;
-  LightWithLabel *treatmentLight;
-  LightWithLabel *batteryLight;
-
   void uiSetup();
 
   void connectNeuresetController(NeuresetController*);
