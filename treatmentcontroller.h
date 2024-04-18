@@ -38,6 +38,12 @@ signals:
   void logTreatment(const QString&);
   void shutOff();
 
+  // signals only for updating UI from threaded processes (don't include in UML)
+  void timeRemainingChanged(const QString&);
+  void treatmentPercentageChanged(int);
+  void dataSeriesUpdated(const QVector<double>&, const QVector<double>&, bool);
+  void graphRedraw(QCustomPlot::RefreshPriority);
+
 private slots:
 
   void onUpButtonPressed(int);

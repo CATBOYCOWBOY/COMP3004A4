@@ -32,11 +32,6 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   ui->waveLabel->setAlignment(Qt::AlignCenter);
   ui->waveLabel->setText(QString::fromStdString(labelText.str()));
 
-  connect(ui->batteryLowAction, &QAction::triggered, this, &TreatmentController::onBatteryLowCondition);
-  connect(ui->batteryResetAction, &QAction::triggered, this, &TreatmentController::onBatteryResetCondition);
-  connect(ui->disconnectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableDisconnect);
-  connect(ui->connectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableReconnect);
-
   for (int i = 0; i < NUM_SAMPLES; i++)
   {
     defaultYSeries[i] = 0;
@@ -64,6 +59,17 @@ TreatmentController::TreatmentController(QObject* parent, Ui::MainWindow *mw, Ti
   ui->ledLayout->addWidget(batteryLight);
 
   initializeSensorsAndThreads();
+
+  connect(ui->batteryLowAction, &QAction::triggered, this, &TreatmentController::onBatteryLowCondition);
+  connect(ui->batteryResetAction, &QAction::triggered, this, &TreatmentController::onBatteryResetCondition);
+  connect(ui->disconnectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableDisconnect);
+  connect(ui->connectTerminalAction, &QAction::triggered, this, &TreatmentController::onCableReconnect);
+
+  connect(this, &TreatmentController::timeRemainingChanged, ui->estimatedTimeLabel, &QLabel::setText, Qt::QueuedConnection);
+  connect(this, &TreatmentController::treatmentPercentageChanged, ui->treatmentProgress, &QProgressBar::setValue, Qt::QueuedConnection);
+
+  connect(this, &TreatmentController::dataSeriesUpdated, ui->waveDisplay->graph(0), &QCPGraph::setData, Qt::QueuedConnection);
+  connect(this, &TreatmentController::graphRedraw, ui->waveDisplay, &QCustomPlot::replot, Qt::QueuedConnection);
 }
 
 TreatmentController::~TreatmentController()
@@ -124,11 +130,16 @@ void TreatmentController::onPlayButtonPressed(int i)
     return;
   }
   qDebug() << "NEURESET STARTING TREATMENT";
+  std::stringstream s;
+  s << "Est. time remaining: ";
+  // Time spent on feedback rounds + baseline calculations
+  s << (NUM_FEEDBACK_ROUNDS * 5 + NUM_FEEDBACK_ROUNDS) + 5 << " s";
   ui->treatmentProgress->setValue(0);
   treatmentStartTime = timeController->getTime();
   startingSumBaseline = 0;
   endingSumBaseline = 0;
   connectionLight->solidOn();
+  ui->estimatedTimeLabel->setText(QString::fromStdString(s.str()));
   emit treatmentStarted();
 }
 
@@ -196,10 +207,8 @@ void TreatmentController::onWaveFormUpdate(int i)
   {
     return;
   }
-  controllerMutex->lock();
-  ui->waveDisplay->graph(0)->setData(xSeries, sensors[selectedSensorId]->getCurrentSeries());
-  ui->waveDisplay->replot();
-  controllerMutex->unlock();
+  emit dataSeriesUpdated(xSeries, sensors[selectedSensorId]->getCurrentSeries(), false);
+  emit graphRedraw(QCustomPlot::rpRefreshHint);
 }
 
 void TreatmentController::onSensorFinished(double i)
@@ -208,7 +217,8 @@ void TreatmentController::onSensorFinished(double i)
   unfinishedSensors = unfinishedSensors - 1;
   endingSumBaseline = endingSumBaseline + i;
   numCyclesRemaining = numCyclesRemaining - 1;
-  ui->treatmentProgress->setValue(treatmentPercentage());
+  emit treatmentPercentageChanged(treatmentPercentage());
+
 
   if (unfinishedSensors == 0) // on completion of full treatment
   {
@@ -230,6 +240,7 @@ void TreatmentController::onSensorFinished(double i)
     }
   }
   controllerMutex->unlock();
+  emit timeRemainingChanged("");
 }
 
 void TreatmentController::onSensorStarted(double i)
@@ -245,7 +256,16 @@ void TreatmentController::onCycleComplete()
 {
   controllerMutex->lock();
   numCyclesRemaining = numCyclesRemaining - 1;
-  ui->treatmentProgress->setValue(treatmentPercentage());
+  emit treatmentPercentageChanged(treatmentPercentage());
+
+  std::stringstream s;
+  s << "Est. seconds remaining: ";
+  s << std::max(static_cast<int>((NUM_FEEDBACK_ROUNDS * 5 + NUM_FEEDBACK_ROUNDS) -
+                        (NUM_FEEDBACK_ROUNDS * 5 + NUM_FEEDBACK_ROUNDS) *
+                         static_cast<float>(treatmentPercentage()) / 100), 0)
+    << " s";
+
+  emit timeRemainingChanged(QString::fromStdString(s.str()));
   controllerMutex->unlock();
 }
 

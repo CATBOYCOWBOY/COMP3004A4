@@ -29,9 +29,7 @@ QString TimeController::getTime()
 
 void TimeController::onDeviceTimeUpdate()
 {
-    // qDebug() << "onDeviceTimeUpdate";
     *currentDateTime = QDateTime::currentDateTime();
-    // qDebug() << getTime();
     if(viewTime == true){updateTimeDisplay();}
 }
 
@@ -152,7 +150,6 @@ void TimeController::onStopButtonPressed(int i)
         viewTime = false;
         setYear = true;
         mw->yearDisplay->setLineWidth(5);
-        qDebug() << "setTime";
     }
     else{
         updateTimeDisplay();
@@ -167,7 +164,6 @@ void TimeController::onStopButtonPressed(int i)
         mw->hourDisplay->setLineWidth(1);
         mw->minuteDisplay->setLineWidth(1);
         viewTime = true;
-        qDebug() << "viewTime";
     }
 
 }
@@ -316,182 +312,3 @@ void TimeController::onDownButtonPressed(int i)
     }
 
 }
-
-/*
-    #PauseButton
-    #go back in menu
-    if(viewTime == True){
-        qDebug() << "RAHHHHHHHHH"
-    }
-    else{
-        if(setMinute == True){
-            setMinute = False;
-            setHour = True;
-        }
-        else if(setHour == True){
-            setHour = False;
-            setDay = True;
-        }
-        else if(setDay == True){
-            setDay = False;
-            setMonth = True;
-        }
-        else if(setMonth == True){
-            setMonth = False;
-            setYear = True;
-        }
-    }
-
-    #PlayButton
-    #go forward in menu
-    if(viewTime == True){
-        qDebug() << "RAHHHHHHHHH"
-    }
-    else{
-        if(setYear == True){
-            setYear = False;
-            setMonth = True;
-        }
-        else if(setMonth == True){
-            setMonth = False;
-            setDay = True;
-        }
-        else if(setDay == True){
-            setDay = False;
-            setHour = True;
-        }
-        else if(setHour == True){
-            setHour = False;
-            setMinute = True;
-        }
-        else{
-            //reset perms
-            setMinute = False;
-            setDateTime();
-            updateTimeDisplay();
-            viewTime = True;
-        }
-    }
-
-
-    # UpButton
-    if(viewTime == False){
-        if(setYear == True){
-            tempYear++;
-            if(tempYear > 9999){tempYear = 0};
-            else if(tempYear % 4 == 0 && tempMonth == 2 && tempDay > 28){
-                tempDay = 28;
-                mw->dayDisplay->display(tempDay);
-            }
-            //if year changed to leap, update day value
-            mw->yearDisplay->display(tempYear);
-        }
-        else if(setMonth == True){
-            tempMonth++;
-            if(tempMonth > 12){tempMonth = 1};
-            if(tempMonth == 2 && tempDay > 28){
-                tempDay = 28;
-                mw->dayDisplay->display(tempDay);
-            }
-            //change date
-            mw->monthDisplay->display(tempMonth);
-
-        }
-        else if(setDay == True){
-            //check that day is a valid day
-            tempDay++;
-            if(tempMonth == 4 || tempMonth == 6 || tempMonth == 9 || tempMonth == 11){
-                if(tempDay == 31){tempDay = 1};
-            }
-            else if(tempMonth == 2){
-                if(tempYear % 4 == 0 && tempYear % 100 != 0){
-                    if(tempDay == 30){tempDay = 1};
-                }
-                else{
-                    if(tempDay == 29){tempDay = 1};
-                }
-            }
-            else{
-                if(tempDay == 32){tempDay = 1};
-            }
-            mw->dayDisplay->display(tempDay);
-        }
-        else if(setHour == True){
-            tempHour++;
-            if(tempHour == 24){
-                tempHour == 0;
-            }
-            mw->hourDisplay->display(tempHour);
-        }
-        else if(setMinute == True){
-            tempMinute++;
-            if(tempMinute == 60){
-                tempMinute = 0
-            }
-            mw->minuteDisplay->display(tempMinute);
-        }
-    }
-
-    # DownButton
-    if(viewTime == False){
-        if(setYear == True){
-            tempYear--;
-            if(tempYear < 0){tempYear = 9999};
-            else if(tempYear % 4 == 0 && tempMonth == 2 && tempDay > 28){
-                tempDay = 28;
-                mw->dayDisplay->display(tempDay);
-            }
-            //if year changed to leap, update day value
-            mw->yearDisplay->display(tempYear);
-        }
-        else if(setMonth == True){
-            tempMonth--;
-            if(tempMonth = 0){tempMonth = 12};
-            if(tempMonth == 2 && tempDay > 28){
-                tempDay = 28;
-                mw->dayDisplay->display(tempDay);
-            }
-            //change date
-            mw->monthDisplay->display(tempMonth);
-
-        }
-        else if(setDay == True){
-            //check that day is a valid day
-            tempDay--;
-            if(tempMonth == 4 || tempMonth == 6 || tempMonth == 9 || tempMonth == 11){
-                if(tempDay == 0){tempDay = 31};
-            }
-            else if(tempMonth == 2){
-                if(tempYear % 4 == 0 && tempYear % 100 != 0){
-                    if(tempDay == 0){tempDay = 30};
-                }
-                else{
-                    if(tempDay == 0){tempDay = 29};
-                }
-            }
-            else{
-                if(tempDay == 0){tempDay = 31};
-            }
-            mw->dayDisplay->display(tempDay);
-        }
-        else if(setHour == True){
-            tempHour--;
-            if(tempHour == -1){
-                tempHour == 23;
-            }
-            mw->hourDisplay->display(tempHour);
-        }
-        else if(setMinute == True){
-            tempMinute--;
-            if(tempMinute == -1){
-                tempMinute = 59
-            }
-            mw->minuteDisplay->display(tempMinute);
-        }
-    }
-
-
-*/
-
-
-
