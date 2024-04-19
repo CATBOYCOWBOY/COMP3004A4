@@ -66,15 +66,15 @@ Shared contributions:
 
 ## Demonstration videos (on Google Drive):
 
-[Use case 1 (treatment with Neureset device)](https://drive.google.com/drive/folders/1j1sNvJLI3kd9CeLZAo1u5huoYzW-1IK8)
+[Use case 1 (treatment with Neureset device)](https://drive.google.com/file/d/1aC1XOalPdHg1itX7LROPzSrxLoyKUewF/view?usp=sharing)
 
-[Use case 2 (date/time setting with Neureset controls)](https://drive.google.com/drive/folders/1j1sNvJLI3kd9CeLZAo1u5huoYzW-1IK8)
+[Use case 2 (date/time setting with Neureset controls)](https://drive.google.com/file/d/1hrMTkTmXFpbrRNbAxvaT84RfbEEjeAbD/view?usp=sharing)
 
-[Use case 3 (viewing session logs with Neureset controls)](https://drive.google.com/drive/folders/1j1sNvJLI3kd9CeLZAo1u5huoYzW-1IK8)
+[Use case 3 (viewing session logs with Neureset controls)](https://drive.google.com/file/d/19O3U7r47JcTYsfz9R-N9iKQvGweuV5c-/view?usp=sharing)
 
-[Use case 4 (Neureset device detects low battery)](https://drive.google.com/drive/folders/1j1sNvJLI3kd9CeLZAo1u5huoYzW-1IK8)
+[Use case 4 (Neureset device detects low battery)](https://drive.google.com/file/d/1c0qOYUTOmEKZ9tVbmHxQOmbPcyc4a_Pu/view?usp=sharing)
 
-[Use case 5 (Neureset device detects disconnection on sensors)](https://drive.google.com/drive/folders/1j1sNvJLI3kd9CeLZAo1u5huoYzW-1IK8)
+[Use case 5 (Neureset device detects disconnection on sensors)](https://drive.google.com/file/d/1fqOcrxpg3P8ojCt34S_V8yYnEaQrtlB2/view?usp=sharing)
 
 
 ## Files included with submission:  
