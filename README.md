@@ -76,6 +76,15 @@ Shared contributions:
 
 [Use case 5 (Neureset device detects disconnection on sensors)](https://drive.google.com/file/d/1fqOcrxpg3P8ojCt34S_V8yYnEaQrtlB2/view?usp=sharing)
 
+## Documentations (on Google Drive):
+
+[Use Cases](https://docs.google.com/document/d/1ev9GNp3JJwHLUTvSF0FCgvhe5OvHUKpyAcVUYL-XrIs/edit?usp=sharing)
+
+[UML Diagrams and Explanations for Design](https://drive.google.com/drive/folders/1H1zpC6HfcoAhNFkwXBZu223q-rXFydxT?usp=sharing)
+
+[Requirement Traceability Matrix](https://docs.google.com/document/d/1qWl2k4LM5syH9Waed5qqjGO2BinnAI-XPrOyVtwxD9Y/edit?usp=sharing)
+
+
 
 ## Files included with submission:  
 Source code:
