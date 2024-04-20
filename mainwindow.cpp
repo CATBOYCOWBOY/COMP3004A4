@@ -95,7 +95,6 @@ void MainWindow::on_pauseButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
-  qDebug() << "stop button clicked";
   emit stopButtonClicked(viewSelectedTabIndex);
 }
 
@@ -107,16 +106,9 @@ void MainWindow::on_primaryTabs_currentChanged(int index)
 
 void MainWindow::on_powerButton_clicked()
 {
-  qDebug() << "NEURESET SHUTTING DOWN...";
   QCoreApplication::exit();
 }
 
-void MainWindow::testTreatmentLog(const QString &string)
-{
-  qDebug() << "logging " << string;
-}
+void MainWindow::testTreatmentLog(const QString &string) {}
 
-void MainWindow::testSessionLogs(const QString &str)
-{
-  qDebug() << "SESSION LOGS: " << str << Qt::endl;
-}
+void MainWindow::testSessionLogs(const QString &str) {}

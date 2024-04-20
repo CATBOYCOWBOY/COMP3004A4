@@ -129,7 +129,6 @@ void TreatmentController::onPlayButtonPressed(int i)
   } else if (batteryTreatmentsLeft == 0) {
     return;
   }
-  qDebug() << "NEURESET STARTING TREATMENT";
   std::stringstream s;
   s << "Est. time remaining: ";
   // Time spent on feedback rounds + baseline calculations
@@ -163,7 +162,6 @@ void TreatmentController::onStopButtonPressed(int i)
   {
     return;
   }
-  qDebug() << "NEURESET STOPPING TREATMENT";
   ui->treatmentProgress->setValue(0);
   unfinishedSensors = 0;
   numCyclesRemaining = 0;
@@ -222,7 +220,6 @@ void TreatmentController::onSensorFinished(double i)
 
   if (unfinishedSensors == 0) // on completion of full treatment
   {
-    qDebug() << "NEURESET TREATMENT DONE";
     isTreatmentRunning = false;
     isTreatmentPaused = false;
     batteryTreatmentsLeft -= 1;

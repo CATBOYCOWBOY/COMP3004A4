@@ -83,7 +83,6 @@ void LogsController::writeLogsToDevice() {
 // slots
 void LogsController::addSessionToLogs(const QString& str) {
     // if a treatment has been completed add it to the logs
-    qDebug() << "logs received signal of completed treatment" << Qt::endl;
     QStringList newData = str.split(",");
     this->sessionsList.append(newData);
     updateUi(this->sessionsList.size(), newData);
@@ -93,28 +92,23 @@ void LogsController::addSessionToLogs(const QString& str) {
 void LogsController::onUpButtonPressed(int i) {
     if (controllerId != i) { return; }
     ui->sessionsList->verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepSub);
-    qDebug() << "up was pressed" << Qt::endl;
 }
 
 void LogsController::onDownButtonPressed(int i) {
     if (controllerId != i) { return; }
     ui->sessionsList->verticalScrollBar()->triggerAction(QAbstractSlider::SliderPageStepAdd);
-    qDebug() << "down was pressed" << Qt::endl;
 }
 
 void LogsController::onPlayButtonPressed(int i) {
     if (controllerId != i) { return; }
     writeLogsToComputer();
-    qDebug() << "play was pressed" << Qt::endl;
 }
 
 void LogsController::onStopButtonPressed(int i) {
     if (controllerId != i) { return; }
-    qDebug() << "stop was pressed" << Qt::endl;
 }
 
 void LogsController::onPauseButtonPressed(int i) {
     if (controllerId != i) { return; }
-    qDebug() << "pause was pressed" << Qt::endl;
 }
 
